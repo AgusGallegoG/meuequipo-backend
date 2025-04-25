@@ -1,7 +1,6 @@
 package com.web.meuequipo.core.auth.security;
 
 import com.web.meuequipo.core.user.User;
-import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -34,6 +33,10 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public String getUsername() {
+        return this.user.getEmail();
+    }
+
+    public String getEmail() {
         return this.user.getEmail();
     }
 
