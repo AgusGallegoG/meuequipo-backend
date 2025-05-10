@@ -1,11 +1,12 @@
 package com.web.meuequipo.core.publication;
 
-import com.web.meuequipo.core.image.Image;
 import com.web.meuequipo.core.audit.AuditableEntity;
+import com.web.meuequipo.core.image.Image;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -16,6 +17,7 @@ import java.util.List;
 @Table(name = "Publication")
 public class Publication extends AuditableEntity implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     @Id
