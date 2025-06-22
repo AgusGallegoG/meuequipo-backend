@@ -25,7 +25,8 @@ public class SecurityConfig {
     private final CustomUserDetailsService customUserDetailsService;
     private static final String[] WHITE_LIST = {
             "/api/auth/login",
-            "/api/season/active"
+            "/api/season/active",
+            "/api/enums/**"
     };
 
 
