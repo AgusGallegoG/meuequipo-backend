@@ -1,7 +1,7 @@
 package com.web.meuequipo.core.auth.service;
 
-import com.web.meuequipo.core.auth.dto.LoginRequest;
-import com.web.meuequipo.core.auth.dto.LoginResponse;
+import com.web.meuequipo.core.auth.dto.request.LoginRequest;
+import com.web.meuequipo.core.auth.dto.response.LoginResponse;
 import com.web.meuequipo.core.auth.security.CustomUserDetails;
 import com.web.meuequipo.core.auth.token.JwtService;
 import org.springframework.security.authentication.AuthenticationManager;
