@@ -1,6 +1,8 @@
-package com.web.meuequipo.core.exception;
+package com.web.meuequipo.core.shared.rest;
 
 import com.web.meuequipo.core.season.exception.SeasonException;
+import com.web.meuequipo.core.shared.exception.BaseException;
+import com.web.meuequipo.core.user.exception.UserException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -17,5 +19,15 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(SeasonException.class)
     public ResponseEntity<Object> handleSeasonException(SeasonException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(UserException.class)
+    public ResponseEntity<Object> handleUserException(UserException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<Object> handleIllegalArgumentException(IllegalArgumentException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
     }
 }

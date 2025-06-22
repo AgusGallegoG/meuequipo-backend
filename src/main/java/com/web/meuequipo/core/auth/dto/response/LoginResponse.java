@@ -1,4 +1,4 @@
-package com.web.meuequipo.core.auth.dto;
+package com.web.meuequipo.core.auth.dto.response;
 
 import lombok.Data;
 
