@@ -4,6 +4,7 @@ import com.web.meuequipo.core.category.exception.CategoryException;
 import com.web.meuequipo.core.image.exception.ImageException;
 import com.web.meuequipo.core.season.exception.SeasonException;
 import com.web.meuequipo.core.shared.exception.BaseException;
+import com.web.meuequipo.core.sponsor.exception.SponsorException;
 import com.web.meuequipo.core.user.exception.UserException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -46,5 +47,10 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(ImageException.class)
     public ResponseEntity<Object> handleImageException(ImageException ex) {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(SponsorException.class)
+    public ResponseEntity<Object> handleSponsorException(SponsorException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
     }
 }
