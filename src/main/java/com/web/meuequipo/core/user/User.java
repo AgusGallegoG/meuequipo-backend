@@ -27,7 +27,7 @@ public class User extends AuditableEntity implements Serializable {
     @Column(name = "surnames")
     private String surnames;
 
-    @Column(name = "email")
+    @Column(name = "email", unique = true, nullable = false)
     private String email;
 
     @Column(name = "password")
@@ -36,8 +36,8 @@ public class User extends AuditableEntity implements Serializable {
     @Column(name = "rol")
     private String rol = "ADMIN"; // Por ahora todos son administrators. Enum de roles
 
-    @Column(name = "active")
-    private boolean active;
+    @Column(name = "is_active", nullable = false)
+    private boolean isActive;
 
 
 //    public String getFullName() {
