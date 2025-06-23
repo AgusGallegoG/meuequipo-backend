@@ -20,12 +20,12 @@ public class UserController {
     }
 
     @GetMapping("/")
-    Page<UserResponse> getUsersPage(Pageable pageable) {
+    public Page<UserResponse> getUsersPage(Pageable pageable) {
         return this.userService.getUsers(pageable);
     }
 
     @PostMapping("/")
-    Page<UserResponse> saveUser(@RequestBody UserSaveRequest request, @ModelAttribute Pageable pageable) {
+    public Page<UserResponse> saveUser(@RequestBody UserSaveRequest request, @ModelAttribute Pageable pageable) {
         this.userService.saveUser(request);
         return this.userService.getUsers(pageable);
     }

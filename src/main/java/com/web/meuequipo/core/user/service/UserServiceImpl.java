@@ -64,20 +64,21 @@ public class UserServiceImpl implements UserService {
 
         User user = new User();
 
-        user.setActive(request.getActive());
-        user.setName(request.getName());
-        user.setSurnames(request.getSurnames());
-        user.setEmail(request.getEmail());
+
         user.setPassword(passwordEncoder.encode(password));
 
-        //TODO :> Send mail to user with info
+        saveUserEntity(request, user);
 
-        userRepository.save(user);
+        //TODO :> Send mail to user with info
     }
 
     private void updateUser(UserSaveRequest request) {
         User user = userRepository.findById(request.getId()).orElseThrow(() -> new UserException("Non se atopa o usuario en BD"));
 
+        saveUserEntity(request, user);
+    }
+
+    private void saveUserEntity(UserSaveRequest request, User user) {
         user.setActive(request.getActive());
         user.setName(request.getName());
         user.setSurnames(request.getSurnames());

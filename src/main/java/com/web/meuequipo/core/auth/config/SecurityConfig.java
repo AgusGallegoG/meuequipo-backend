@@ -29,6 +29,7 @@ public class SecurityConfig {
             "/api/enums/**",
             "/api/images/serve/**",
             "/api/category/dropdown",
+            "/api/sponsors/footer"
     };
 
 

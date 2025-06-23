@@ -1,6 +1,7 @@
-package com.web.meuequipo.core.category;
+package com.web.meuequipo.core.sponsor;
 
 import com.web.meuequipo.core.audit.AuditableEntity;
+import com.web.meuequipo.core.image.Image;
 import com.web.meuequipo.core.season.Season;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -8,13 +9,12 @@ import lombok.EqualsAndHashCode;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.time.LocalDate;
 
-@Entity
 @Data
-@EqualsAndHashCode(callSuper = true)
-@Table(name = "Category")
-public class Category extends AuditableEntity implements Serializable {
+@Entity
+@EqualsAndHashCode(callSuper = false)
+@Table(name = "Sponsor")
+public class Sponsor extends AuditableEntity implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -23,19 +23,17 @@ public class Category extends AuditableEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "year_init")
-    private LocalDate yearInit;
+    @Column(name = "url")
+    private String url;
 
-    @Column(name = "year_end")
-    private LocalDate yearEnd;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "logo_id")
+    private Image logo;
 
-    @Column(name = "is_active", nullable = false)
-    private boolean isActive;
-
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "season_id", nullable = false)
     private Season season;
 }

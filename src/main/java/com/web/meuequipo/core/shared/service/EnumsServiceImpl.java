@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class EnumsServiceImpl implements EnumsService {
@@ -21,7 +20,7 @@ public class EnumsServiceImpl implements EnumsService {
                 .map(s ->
                         new SelectDTO(s.getId(), s.getLabel())
                 )
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override
@@ -30,7 +29,7 @@ public class EnumsServiceImpl implements EnumsService {
                 .map(p ->
                         new SelectDTO(p.getId(), p.getLabel())
                 )
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override
@@ -39,7 +38,7 @@ public class EnumsServiceImpl implements EnumsService {
                 .map(s ->
                         new SelectDTO(s.getId(), s.getLabel())
                 )
-                .collect(Collectors.toList());
+                .toList();
     }
 
     @Override
@@ -48,6 +47,6 @@ public class EnumsServiceImpl implements EnumsService {
                 .map(m ->
                         new SelectDTO(m.getId(), m.getLabel())
                 )
-                .collect(Collectors.toList());
+                .toList();
     }
 }

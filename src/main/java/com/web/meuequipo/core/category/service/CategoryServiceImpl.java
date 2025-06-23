@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
@@ -31,7 +30,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public List<SelectDTO> getCategoriesDropdown() {
         List<Category> allCategories = categoryRepository.findAllCategoryActiveActualSeason();
-        return allCategories.stream().map(CategoryUtil::toSelect).collect(Collectors.toList());
+        return allCategories.stream().map(CategoryUtil::toSelect).toList();
     }
 
     @Override
@@ -41,7 +40,7 @@ public class CategoryServiceImpl implements CategoryService {
             return new ArrayList<>();
         }
 
-        return allCategories.stream().map(CategoryUtil::createCategoryResponse).collect(Collectors.toList());
+        return allCategories.stream().map(CategoryUtil::createCategoryResponse).toList();
     }
 
     @Override
@@ -59,19 +58,19 @@ public class CategoryServiceImpl implements CategoryService {
                 .orElseThrow(() -> new IllegalStateException("Non se atopou unha temporada activa"));
         Category category = new Category();
 
-        category.setName(categorySaveRequest.getName());
-        category.setYearInit(categorySaveRequest.getYearInit());
-        category.setYearEnd(categorySaveRequest.getYearEnd());
         category.setSeason(season);
-        category.setActive(categorySaveRequest.isActive());
 
-        categoryRepository.save(category);
+        saveCategoryEntity(categorySaveRequest, category);
     }
 
     private void updateCategory(CategorySaveRequest categorySaveRequest) {
         Category category = categoryRepository.findById(categorySaveRequest.getId())
                 .orElseThrow(() -> new CategoryException("Non se atopa a categoría en BD"));
 
+        saveCategoryEntity(categorySaveRequest, category);
+    }
+
+    private void saveCategoryEntity(CategorySaveRequest categorySaveRequest, Category category) {
         category.setName(categorySaveRequest.getName());
         category.setYearInit(categorySaveRequest.getYearInit());
         category.setYearEnd(categorySaveRequest.getYearEnd());
