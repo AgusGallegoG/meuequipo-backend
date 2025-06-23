@@ -11,5 +11,5 @@ public interface CategoryService {
 
     List<CategoryResponse> getCategories();
 
-    void saveCategory(CategorySaveRequest categorySaveRequest);
+    CategoryResponse saveCategory(CategorySaveRequest categorySaveRequest);
 }
