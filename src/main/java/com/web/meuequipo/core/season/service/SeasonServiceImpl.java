@@ -38,18 +38,21 @@ public class SeasonServiceImpl implements SeasonService {
 
     @Override
     @Transactional
-    public List<SeasonResponse> activateSeason(Long id) {
+    public SeasonResponse activateSeason(Long id) {
         List<Season> allSeasons = seasonRepository.findAll();
         for (Season season : allSeasons) {
             season.setIsActive(season.getId().equals(id)); // Si es el id del paramtro, se activa, si no se desactiva
         }
         seasonRepository.saveAll(allSeasons);
+        Season activeSeason = seasonRepository.findByIsActiveTrue()
+                .orElseThrow(() -> new SeasonException("No se encontró una temporada activa"));
 
-        return this.getAllSeasons();
+        return SeasonUtil.createSeasonResponse(activeSeason);
     }
 
     @Override
-    public List<SeasonResponse> createSeason(SeasonCreateRequest seasonCreateRequest) {
+    @Transactional
+    public SeasonResponse createSeason(SeasonCreateRequest seasonCreateRequest) {
         Season newSeason = SeasonUtil.createSeason(seasonCreateRequest);
 
         seasonRepository.save(newSeason);
@@ -57,7 +60,7 @@ public class SeasonServiceImpl implements SeasonService {
         if (seasonCreateRequest.getActive()) {
             return this.activateSeason(newSeason.getId());
         } else {
-            return this.getAllSeasons();
+            return SeasonUtil.createSeasonResponse(newSeason);
         }
     }
 }
