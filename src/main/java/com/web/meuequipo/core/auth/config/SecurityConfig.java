@@ -27,6 +27,7 @@ public class SecurityConfig {
             "/api/auth/login",
             "/api/season/active",
             "/api/enums/**",
+            "/api/images/serve/**",
             "/api/category/dropdown",
     };
 

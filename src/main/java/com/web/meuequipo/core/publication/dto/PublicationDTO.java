@@ -1,6 +1,6 @@
 package com.web.meuequipo.core.publication.dto;
 
-import com.web.meuequipo.core.image.dto.ImageDTO;
+import com.web.meuequipo.core.image.dto.ImageViewDTO;
 import lombok.Data;
 
 import java.util.List;
@@ -11,5 +11,5 @@ public class PublicationDTO {
     String title;
     String body;
     String creationDate;
-    List<ImageDTO> images;
+    List<ImageViewDTO> images;
 }
