@@ -2,24 +2,26 @@ package com.web.meuequipo.core.shared.enums;
 
 import lombok.Getter;
 
+import java.util.Objects;
+
 @Getter
 public enum Sex {
-    MALE(1, "Masculino"),
-    FEMALE(2, "Feminino"),
-    MIXED(3, "MIxto");
+    MALE(1L, "Masculino"),
+    FEMALE(2L, "Feminino"),
+    MIXED(3L, "Mixto");
 
-    private final int id;
+    private final Long id;
     private final String label;
 
-    Sex(int id, String label) {
+    Sex(Long id, String label) {
         this.id = id;
         this.label = label;
     }
 
 
-    public static Sex fromId(int id) {
+    public static Sex fromId(Long id) {
         for (Sex s : Sex.values()) {
-            if (s.id == id) {
+            if (Objects.equals(s.id, id)) {
                 return s;
             }
         }

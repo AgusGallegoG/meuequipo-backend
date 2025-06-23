@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void changePassword(Long userId, String oldPassword, String newPassword) {
-        User user = userRepository.findByIdAndActiveIsTrue(userId)
+        User user = userRepository.findByIdAndIsActiveIsTrue(userId)
                 .orElseThrow(() -> new UserException("Non se atopa o usuario en base de datos"));
 
         if (!passwordEncoder.matches(oldPassword, user.getPassword())) {

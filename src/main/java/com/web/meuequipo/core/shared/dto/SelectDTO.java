@@ -4,10 +4,10 @@ import lombok.Data;
 
 @Data
 public class SelectDTO {
-    private int id;
+    private Long id;
     private String name;
 
-    public SelectDTO(int id, String name) {
+    public SelectDTO(Long id, String name) {
         this.id = id;
         this.name = name;
     }

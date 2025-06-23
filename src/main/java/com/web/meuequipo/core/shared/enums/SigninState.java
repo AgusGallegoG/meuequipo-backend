@@ -2,25 +2,27 @@ package com.web.meuequipo.core.shared.enums;
 
 import lombok.Getter;
 
+import java.util.Objects;
+
 @Getter
 public enum SigninState {
-    INIT(1, "Iniciada"),
-    DELIVERED(2, "Entregada, pendente de pago"),
-    PAID(3, "Pagada"),
-    ENDED(4, "Finalizada");
+    INIT(1L, "Iniciada"),
+    DELIVERED(2L, "Entregada, pendente de pago"),
+    PAID(3L, "Pagada"),
+    ENDED(4L, "Finalizada");
 
 
-    private final int id;
+    private final Long id;
     private final String label;
 
-    SigninState(int id, String label) {
+    SigninState(Long id, String label) {
         this.id = id;
         this.label = label;
     }
 
-    public static SigninState fromId(int id) {
+    public static SigninState fromId(Long id) {
         for (SigninState s : SigninState.values()) {
-            if (s.getId() == id) {
+            if (Objects.equals(s.getId(), id)) {
                 return s;
             }
         }

@@ -26,7 +26,8 @@ public class SecurityConfig {
     private static final String[] WHITE_LIST = {
             "/api/auth/login",
             "/api/season/active",
-            "/api/enums/**"
+            "/api/enums/**",
+            "/api/category/dropdown",
     };
 
 

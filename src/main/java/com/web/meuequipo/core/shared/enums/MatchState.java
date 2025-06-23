@@ -2,25 +2,27 @@ package com.web.meuequipo.core.shared.enums;
 
 import lombok.Getter;
 
+import java.util.Objects;
+
 @Getter
 public enum MatchState {
-    PRIVATE(1, "Privado"),
-    PROGRAMMED(2, "Programado"),
-    FINALIZED(3, "Finalizado"),
-    CANCELED(4, "Cancelado");
+    PRIVATE(1L, "Privado"),
+    PROGRAMMED(2L, "Programado"),
+    FINALIZED(3L, "Finalizado"),
+    CANCELED(4L, "Cancelado");
 
 
-    private final int id;
+    private final Long id;
     private final String label;
 
-    MatchState(int id, String label) {
+    MatchState(Long id, String label) {
         this.id = id;
         this.label = label;
     }
 
-    public static MatchState fromId(int id) {
+    public static MatchState fromId(Long id) {
         for (MatchState matchState : MatchState.values()) {
-            if (matchState.getId() == id) {
+            if (Objects.equals(matchState.getId(), id)) {
                 return matchState;
             }
         }
