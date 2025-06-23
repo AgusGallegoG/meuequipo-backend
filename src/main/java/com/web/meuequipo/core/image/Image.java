@@ -1,35 +1,37 @@
 package com.web.meuequipo.core.image;
 
 
-import com.web.meuequipo.core.publication.Publication;
+import com.web.meuequipo.core.audit.AuditableEntity;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 @Entity
 @Data
-@Table(name = "Imagen")
-public class Image implements Serializable {
+@EqualsAndHashCode(callSuper = false)
+@Table(name = "Image")
+public class Image extends AuditableEntity implements Serializable {
+
+    @Serial
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "image_seq_generator")
-    @SequenceGenerator(name = "image_seq_generator", sequenceName = "image_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "original_name", nullable = false)
+    private String originalName;
 
-    @Column(name = "path")
-    private String path;
+    @Column(name = "stored_name", nullable = false)
+    private String storedName;
 
-    @Lob
-    @Column(name = "uri")
-    private String imageURI;
+    @Column(name = "relative_path", nullable = false)
+    private String relativePath;
 
-    // References
-    @ManyToOne
-    @JoinColumn(name = "publication_id", nullable = false)
-    private Publication publication;
+    @Column(name = "url", nullable = false)
+    private String url;
+
 }

@@ -1,7 +1,6 @@
 package com.web.meuequipo.core.publication;
 
 import com.web.meuequipo.core.audit.AuditableEntity;
-import com.web.meuequipo.core.image.Image;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -9,7 +8,6 @@ import lombok.EqualsAndHashCode;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 @Entity
 @Data
@@ -31,10 +29,6 @@ public class Publication extends AuditableEntity implements Serializable {
     @Column(name = "body")
     private String body;
 
-    @Column(name = "creationDate")
+    @Column(name = "creation_date")
     private Date creationDate;
-
-    //Probably add user ?? to see who created it.
-    @OneToMany(mappedBy = "publication", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Image> image;
 }
