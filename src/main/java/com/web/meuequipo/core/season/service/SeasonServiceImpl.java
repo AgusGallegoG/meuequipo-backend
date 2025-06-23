@@ -58,7 +58,7 @@ public class SeasonServiceImpl implements SeasonService {
         seasonRepository.save(newSeason);
 
         if (seasonCreateRequest.getActive()) {
-            return this.activateSeason(newSeason.getId());
+            return activateSeason(newSeason.getId());
         } else {
             return SeasonUtil.createSeasonResponse(newSeason);
         }
