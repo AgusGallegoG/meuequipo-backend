@@ -3,6 +3,8 @@ package com.web.meuequipo.core.season.rest;
 import com.web.meuequipo.core.season.dto.request.SeasonCreateRequest;
 import com.web.meuequipo.core.season.dto.response.SeasonResponse;
 import com.web.meuequipo.core.season.service.SeasonService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,13 +33,13 @@ public class SeasonController {
 
     @PreAuthorize("isAuthenticated()")
     @PatchMapping("/{id}/activate")
-    public List<SeasonResponse> activateSeason(@PathVariable Long id) {
-        return seasonService.activateSeason(id);
+    public ResponseEntity<SeasonResponse> activateSeason(@PathVariable Long id) {
+        return ResponseEntity.ok(seasonService.activateSeason(id));
     }
 
     @PreAuthorize("isAuthenticated()")
     @PostMapping()
-    public List<SeasonResponse> createSeason(@RequestBody SeasonCreateRequest seasonCreateRequest) {
-        return seasonService.createSeason(seasonCreateRequest);
+    public ResponseEntity<SeasonResponse> createSeason(@RequestBody SeasonCreateRequest seasonCreateRequest) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(seasonService.createSeason(seasonCreateRequest));
     }
 }

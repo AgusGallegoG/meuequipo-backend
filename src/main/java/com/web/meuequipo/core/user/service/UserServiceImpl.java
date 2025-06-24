@@ -51,15 +51,18 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public void saveUser(UserSaveRequest request) {
+    public UserResponse saveUser(UserSaveRequest request) {
+        User saved;
         if (Objects.isNull(request.getId())) {
-            this.createUser(request);
+            saved = this.createUser(request);
         } else {
-            this.updateUser(request);
+            saved = this.updateUser(request);
         }
+
+        return UserUtil.mapUserToUserResponse(saved);
     }
 
-    private void createUser(UserSaveRequest request) {
+    private User createUser(UserSaveRequest request) {
         String password = UtilPassword.generateSecurePass();
 
         User user = new User();
@@ -67,23 +70,25 @@ public class UserServiceImpl implements UserService {
 
         user.setPassword(passwordEncoder.encode(password));
 
-        saveUserEntity(request, user);
+        User saved = saveUserEntity(request, user);
 
-        //TODO :> Send mail to user with info
+        //TODO :> Send mail to user with info -> Revisar tryCatch NO relanzar la excepcion, para devolver el response correcto aunque falle el mail
+
+        return saved;
     }
 
-    private void updateUser(UserSaveRequest request) {
+    private User updateUser(UserSaveRequest request) {
         User user = userRepository.findById(request.getId()).orElseThrow(() -> new UserException("Non se atopa o usuario en BD"));
 
-        saveUserEntity(request, user);
+        return saveUserEntity(request, user);
     }
 
-    private void saveUserEntity(UserSaveRequest request, User user) {
+    private User saveUserEntity(UserSaveRequest request, User user) {
         user.setActive(request.getActive());
         user.setName(request.getName());
         user.setSurnames(request.getSurnames());
         user.setEmail(request.getEmail());
 
-        userRepository.save(user);
+        return userRepository.save(user);
     }
 }

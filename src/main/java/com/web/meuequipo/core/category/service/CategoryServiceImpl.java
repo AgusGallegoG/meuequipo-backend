@@ -45,37 +45,40 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     @Transactional
-    public void saveCategory(CategorySaveRequest categorySaveRequest) {
+    public CategoryResponse saveCategory(CategorySaveRequest categorySaveRequest) {
+        Category saved;
         if (categorySaveRequest.getId() == null) {
-            this.createCategory(categorySaveRequest);
+            saved = this.createCategory(categorySaveRequest);
         } else {
-            this.updateCategory(categorySaveRequest);
+            saved = this.updateCategory(categorySaveRequest);
         }
+
+        return CategoryUtil.createCategoryResponse(saved);
     }
 
-    private void createCategory(CategorySaveRequest categorySaveRequest) {
+    private Category createCategory(CategorySaveRequest categorySaveRequest) {
         Season season = this.seasonRepository.findByIsActiveTrue()
                 .orElseThrow(() -> new IllegalStateException("Non se atopou unha temporada activa"));
         Category category = new Category();
 
         category.setSeason(season);
 
-        saveCategoryEntity(categorySaveRequest, category);
+        return saveCategoryEntity(categorySaveRequest, category);
     }
 
-    private void updateCategory(CategorySaveRequest categorySaveRequest) {
+    private Category updateCategory(CategorySaveRequest categorySaveRequest) {
         Category category = categoryRepository.findById(categorySaveRequest.getId())
                 .orElseThrow(() -> new CategoryException("Non se atopa a categoría en BD"));
 
-        saveCategoryEntity(categorySaveRequest, category);
+        return saveCategoryEntity(categorySaveRequest, category);
     }
 
-    private void saveCategoryEntity(CategorySaveRequest categorySaveRequest, Category category) {
+    private Category saveCategoryEntity(CategorySaveRequest categorySaveRequest, Category category) {
         category.setName(categorySaveRequest.getName());
         category.setYearInit(categorySaveRequest.getYearInit());
         category.setYearEnd(categorySaveRequest.getYearEnd());
         category.setActive(categorySaveRequest.isActive());
 
-        categoryRepository.save(category);
+        return categoryRepository.save(category);
     }
 }

@@ -5,6 +5,8 @@ import com.web.meuequipo.core.user.dto.response.UserResponse;
 import com.web.meuequipo.core.user.service.UserService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,13 +23,12 @@ public class UserController {
 
     @GetMapping("/")
     public Page<UserResponse> getUsersPage(Pageable pageable) {
-        return this.userService.getUsers(pageable);
+        return userService.getUsers(pageable);
     }
 
     @PostMapping("/")
-    public Page<UserResponse> saveUser(@RequestBody UserSaveRequest request, @ModelAttribute Pageable pageable) {
-        this.userService.saveUser(request);
-        return this.userService.getUsers(pageable);
+    public ResponseEntity<UserResponse> saveUser(@RequestBody UserSaveRequest request) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(userService.saveUser(request));
     }
 
 }

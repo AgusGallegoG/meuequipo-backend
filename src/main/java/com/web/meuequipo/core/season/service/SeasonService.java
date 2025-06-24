@@ -10,7 +10,7 @@ public interface SeasonService {
 
     List<SeasonResponse> getAllSeasons();
 
-    List<SeasonResponse> activateSeason(Long id);
+    SeasonResponse activateSeason(Long id);
 
-    List<SeasonResponse> createSeason(SeasonCreateRequest seasonCreateRequest);
+    SeasonResponse createSeason(SeasonCreateRequest seasonCreateRequest);
 }

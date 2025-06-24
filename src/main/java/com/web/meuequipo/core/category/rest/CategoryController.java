@@ -4,6 +4,8 @@ import com.web.meuequipo.core.category.dto.request.CategorySaveRequest;
 import com.web.meuequipo.core.category.dto.response.CategoryResponse;
 import com.web.meuequipo.core.category.service.CategoryService;
 import com.web.meuequipo.core.shared.dto.SelectDTO;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,21 +22,20 @@ public class CategoryController {
     }
 
     @GetMapping("/dropdown")
-    List<SelectDTO> getDropdownCategories() {
+    public List<SelectDTO> getDropdownCategories() {
         return this.categoryService.getCategoriesDropdown();
     }
 
 
     @GetMapping("/")
     @PreAuthorize("isAuthenticated()")
-    List<CategoryResponse> getCategories() {
+    public List<CategoryResponse> getCategories() {
         return this.categoryService.getCategories();
     }
 
     @PostMapping("/")
     @PreAuthorize("isAuthenticated()")
-    List<CategoryResponse> saveCategories(@RequestBody CategorySaveRequest categorySaveRequest) {
-        this.categoryService.saveCategory(categorySaveRequest);
-        return this.categoryService.getCategories();
+    public ResponseEntity<CategoryResponse> saveCategories(@RequestBody CategorySaveRequest categorySaveRequest) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(this.categoryService.saveCategory(categorySaveRequest));
     }
 }
