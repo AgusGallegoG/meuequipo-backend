@@ -7,14 +7,14 @@ import com.web.meuequipo.core.image.data.ImageRepository;
 import com.web.meuequipo.core.image.exception.ImageException;
 import com.web.meuequipo.core.rival.Rival;
 import com.web.meuequipo.core.rival.data.RivalRepository;
-import com.web.meuequipo.core.rival.dto.request.RequestSaveRival;
-import com.web.meuequipo.core.rival.dto.response.ResponseRivalDetails;
-import com.web.meuequipo.core.rival.dto.response.ResponseRivalItem;
+import com.web.meuequipo.core.rival.dto.request.RivalSaveRequest;
+import com.web.meuequipo.core.rival.dto.response.RivalDetailsResponse;
+import com.web.meuequipo.core.rival.dto.response.RivalItemResponse;
 import com.web.meuequipo.core.rival.exception.RivalException;
 import com.web.meuequipo.core.rival.util.RivalUtil;
 import com.web.meuequipo.core.season.Season;
 import com.web.meuequipo.core.season.data.SeasonRepository;
-import com.web.meuequipo.core.shared.dto.response.ResponseMatchTeam;
+import com.web.meuequipo.core.shared.dto.response.MatchTeamDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -42,7 +42,7 @@ public class RivalServiceImpl implements RivalService {
     }
 
     @Override
-    public ResponseRivalDetails getRivalDetails(Long id) {
+    public RivalDetailsResponse getRivalDetails(Long id) {
         Rival rival = rivalRepository.findById(id)
                 .orElseThrow(() -> new RivalException("Non se atopou o rival con id: " + id));
 
@@ -50,57 +50,58 @@ public class RivalServiceImpl implements RivalService {
     }
 
     @Override
-    public Page<ResponseRivalItem> getRivalsTable(Pageable pageable) {
-        Page<Rival> rivalsPage = rivalRepository.findAllOfActualCategory(pageable);
+    public Page<RivalItemResponse> getRivalsTable(Pageable pageable) {
+        Page<Rival> rivalsPage = rivalRepository.findAllOfActualSeason(pageable);
 
         return rivalsPage.map(RivalUtil::mapRivalToResponseRivalItem);
     }
 
     @Override
-    public List<ResponseMatchTeam> getRivalsByCategory(Long categoryId) {
+    public List<MatchTeamDTO> getRivalsByCategory(Long categoryId) {
         List<Rival> rivals = rivalRepository.findAllByCategoryIdAndActualSeason(categoryId);
 
         return rivals.stream().map(RivalUtil::mapRivalToResponseMatchTeam).toList();
     }
 
     @Override
-    public ResponseRivalItem saveRivalItem(RequestSaveRival requestSaveRival) {
+    @Transactional
+    public RivalItemResponse saveRivalItem(RivalSaveRequest rivalSaveRequest) {
         Rival saved;
-        if (requestSaveRival.getId() != null) {
-            saved = this.updateRival(requestSaveRival);
+        if (rivalSaveRequest.getId() != null) {
+            saved = this.updateRival(rivalSaveRequest);
         } else {
-            saved = this.createRival(requestSaveRival);
+            saved = this.createRival(rivalSaveRequest);
         }
 
         return RivalUtil.mapRivalToResponseRivalItem(saved);
     }
 
 
-    private Rival updateRival(RequestSaveRival requestSaveRival) {
-        Rival rival = rivalRepository.findById(requestSaveRival.getId())
-                .orElseThrow(() -> new RivalException("Non se atopou o rival con id: " + requestSaveRival.getId()));
+    private Rival updateRival(RivalSaveRequest rivalSaveRequest) {
+        Rival rival = rivalRepository.findById(rivalSaveRequest.getId())
+                .orElseThrow(() -> new RivalException("Non se atopou o rival con id: " + rivalSaveRequest.getId()));
 
-        return this.saveRivalEntity(requestSaveRival, rival);
+        return this.saveRivalEntity(rivalSaveRequest, rival);
     }
 
-    private Rival createRival(RequestSaveRival requestSaveRival) {
+    private Rival createRival(RivalSaveRequest rivalSaveRequest) {
         Season season = this.seasonRepository.findByIsActiveTrue()
                 .orElseThrow(() -> new IllegalStateException("Non se atopou unha temporada activa"));
         Rival rival = new Rival();
 
         rival.setSeason(season);
 
-        return saveRivalEntity(requestSaveRival, rival);
+        return saveRivalEntity(rivalSaveRequest, rival);
     }
 
-    private Rival saveRivalEntity(RequestSaveRival requestSaveRival, Rival rival) {
-        rival.setName(requestSaveRival.getName());
-        rival.setEmail(requestSaveRival.getEmail());
-        rival.setTlf(requestSaveRival.getTlf());
-        rival.setResponsible(requestSaveRival.getResponsible());
+    private Rival saveRivalEntity(RivalSaveRequest rivalSaveRequest, Rival rival) {
+        rival.setName(rivalSaveRequest.getName());
+        rival.setEmail(rivalSaveRequest.getEmail());
+        rival.setTlf(rivalSaveRequest.getTlf());
+        rival.setResponsible(rivalSaveRequest.getResponsible());
 
-        if (requestSaveRival.getCategories() != null) {
-            List<Category> categories = categoryRepository.findAllById(requestSaveRival.getCategories());
+        if (rivalSaveRequest.getCategories() != null) {
+            List<Category> categories = categoryRepository.findAllByIdInAndIsActiveTrue(rivalSaveRequest.getCategories());
 
             rival.setCategories(categories);
         } else {
@@ -108,9 +109,9 @@ public class RivalServiceImpl implements RivalService {
         }
 
 
-        if (requestSaveRival.getLogo() != null) {
-            Image image = imageRepository.findById(requestSaveRival.getLogo().getId())
-                    .orElseThrow(() -> new ImageException("Non se atopou imaxe co id" + requestSaveRival.getLogo().getId()));
+        if (rivalSaveRequest.getLogo() != null) {
+            Image image = imageRepository.findById(rivalSaveRequest.getLogo().getId())
+                    .orElseThrow(() -> new ImageException("Non se atopou imaxe co id" + rivalSaveRequest.getLogo().getId()));
             rival.setLogo(image);
         }
 

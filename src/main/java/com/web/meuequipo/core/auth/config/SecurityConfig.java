@@ -28,8 +28,12 @@ public class SecurityConfig {
             "/api/season/active",
             "/api/enums/**",
             "/api/images/serve/**",
-            "/api/category/dropdown",
-            "/api/sponsors/footer"
+            "/api/category/public/**",
+            "/api/sponsors/public/**",
+            "/api/teams/public/**",
+            "/api/signin/public/**",
+            "/api/blog/public/**",
+            "/api/calendars/public/**",
     };
 
 

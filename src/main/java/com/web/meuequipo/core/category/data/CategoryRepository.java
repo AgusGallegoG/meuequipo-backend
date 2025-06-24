@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface CategoryRepository extends JpaRepository<Category, Long> {
@@ -16,4 +17,8 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
             WHERE c.season.isActive = true
             AND c.isActive = true""")
     List<Category> findAllCategoryActiveActualSeason();
+
+    Optional<Category> findCategoryByIdAndIsActiveTrue(Long id);
+
+    List<Category> findAllByIdInAndIsActiveTrue(List<Long> ids);
 }

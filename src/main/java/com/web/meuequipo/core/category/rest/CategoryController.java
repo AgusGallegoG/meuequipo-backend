@@ -21,7 +21,7 @@ public class CategoryController {
         this.categoryService = categoryService;
     }
 
-    @GetMapping("/dropdown")
+    @GetMapping("/public/dropdown")
     public List<SelectDTO> getDropdownCategories() {
         return this.categoryService.getCategoriesDropdown();
     }

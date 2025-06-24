@@ -1,4 +1,4 @@
-package com.web.meuequipo.core.rival.dto.request;
+package com.web.meuequipo.core.rival.dto.response;
 
 import com.web.meuequipo.core.image.dto.ImageViewDTO;
 import lombok.Data;
@@ -6,7 +6,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class RequestSaveRival {
+public class RivalDetailsResponse {
     private Long id;
     private String name;
     private String responsible;
@@ -14,4 +14,5 @@ public class RequestSaveRival {
     private String email;
     private ImageViewDTO logo;
     private List<Long> categories;
+
 }

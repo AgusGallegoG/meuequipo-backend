@@ -27,5 +27,5 @@ public interface RivalRepository extends JpaRepository<Rival, Long> {
                 FROM Rival r
                 WHERE r.season.isActive = true
             """)
-    Page<Rival> findAllOfActualCategory(Pageable pageable);
+    Page<Rival> findAllOfActualSeason(Pageable pageable);
 }
