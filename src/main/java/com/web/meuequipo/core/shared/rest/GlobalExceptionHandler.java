@@ -6,6 +6,7 @@ import com.web.meuequipo.core.rival.exception.RivalException;
 import com.web.meuequipo.core.season.exception.SeasonException;
 import com.web.meuequipo.core.shared.exception.BaseException;
 import com.web.meuequipo.core.sponsor.exception.SponsorException;
+import com.web.meuequipo.core.team.exception.TeamException;
 import com.web.meuequipo.core.user.exception.UserException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -57,6 +58,11 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(RivalException.class)
     public ResponseEntity<Object> handleRivalException(RivalException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(TeamException.class)
+    public ResponseEntity<Object> handleTeamException(TeamException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
     }
 }

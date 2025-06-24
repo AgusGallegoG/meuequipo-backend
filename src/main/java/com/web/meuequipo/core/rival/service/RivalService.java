@@ -1,20 +1,20 @@
 package com.web.meuequipo.core.rival.service;
 
-import com.web.meuequipo.core.rival.dto.request.RequestSaveRival;
-import com.web.meuequipo.core.rival.dto.response.ResponseRivalDetails;
-import com.web.meuequipo.core.rival.dto.response.ResponseRivalItem;
-import com.web.meuequipo.core.shared.dto.response.ResponseMatchTeam;
+import com.web.meuequipo.core.rival.dto.request.RivalSaveRequest;
+import com.web.meuequipo.core.rival.dto.response.RivalDetailsResponse;
+import com.web.meuequipo.core.rival.dto.response.RivalItemResponse;
+import com.web.meuequipo.core.shared.dto.response.MatchTeamDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
 public interface RivalService {
-    ResponseRivalDetails getRivalDetails(Long id);
+    RivalDetailsResponse getRivalDetails(Long id);
 
-    Page<ResponseRivalItem> getRivalsTable(Pageable pageable);
+    Page<RivalItemResponse> getRivalsTable(Pageable pageable);
 
-    ResponseRivalItem saveRivalItem(RequestSaveRival requestSaveRival);
+    RivalItemResponse saveRivalItem(RivalSaveRequest rivalSaveRequest);
 
-    List<ResponseMatchTeam> getRivalsByCategory(Long categoryId);
+    List<MatchTeamDTO> getRivalsByCategory(Long categoryId);
 }

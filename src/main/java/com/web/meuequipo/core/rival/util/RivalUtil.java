@@ -3,55 +3,55 @@ package com.web.meuequipo.core.rival.util;
 import com.web.meuequipo.core.category.Category;
 import com.web.meuequipo.core.image.util.ImageUtil;
 import com.web.meuequipo.core.rival.Rival;
-import com.web.meuequipo.core.rival.dto.response.ResponseRivalDetails;
-import com.web.meuequipo.core.rival.dto.response.ResponseRivalItem;
-import com.web.meuequipo.core.shared.dto.response.ResponseMatchTeam;
+import com.web.meuequipo.core.rival.dto.response.RivalDetailsResponse;
+import com.web.meuequipo.core.rival.dto.response.RivalItemResponse;
+import com.web.meuequipo.core.shared.dto.response.MatchTeamDTO;
 
 public class RivalUtil {
 
-    public static ResponseRivalItem mapRivalToResponseRivalItem(Rival rival) {
-        ResponseRivalItem responseRivalItem = new ResponseRivalItem();
+    public static RivalItemResponse mapRivalToResponseRivalItem(Rival rival) {
+        RivalItemResponse rivalItemResponse = new RivalItemResponse();
 
-        responseRivalItem.setId(rival.getId());
-        responseRivalItem.setName(rival.getName());
-        responseRivalItem.setResponsible(rival.getResponsible());
-        responseRivalItem.setTlf(rival.getTlf());
+        rivalItemResponse.setId(rival.getId());
+        rivalItemResponse.setName(rival.getName());
+        rivalItemResponse.setResponsible(rival.getResponsible());
+        rivalItemResponse.setTlf(rival.getTlf());
 
         if (rival.getLogo() != null) {
-            responseRivalItem.setLogo(ImageUtil.getImageViewDTO(rival.getLogo()));
+            rivalItemResponse.setLogo(ImageUtil.getImageViewDTO(rival.getLogo()));
         }
 
-        return responseRivalItem;
+        return rivalItemResponse;
     }
 
-    public static ResponseRivalDetails mapRivalToResponseRivalDetails(Rival rival) {
-        ResponseRivalDetails responseRivalDetails = new ResponseRivalDetails();
+    public static RivalDetailsResponse mapRivalToResponseRivalDetails(Rival rival) {
+        RivalDetailsResponse rivalDetailsResponse = new RivalDetailsResponse();
 
-        responseRivalDetails.setId(rival.getId());
-        responseRivalDetails.setName(rival.getName());
-        responseRivalDetails.setResponsible(rival.getResponsible());
-        responseRivalDetails.setTlf(rival.getTlf());
-        responseRivalDetails.setEmail(rival.getEmail());
-        responseRivalDetails.setCategories(rival.getCategories().stream()
+        rivalDetailsResponse.setId(rival.getId());
+        rivalDetailsResponse.setName(rival.getName());
+        rivalDetailsResponse.setResponsible(rival.getResponsible());
+        rivalDetailsResponse.setTlf(rival.getTlf());
+        rivalDetailsResponse.setEmail(rival.getEmail());
+        rivalDetailsResponse.setCategories(rival.getCategories().stream()
                 .map(Category::getId).toList());
 
         if (rival.getLogo() != null) {
-            responseRivalDetails.setLogo(ImageUtil.getImageViewDTO(rival.getLogo()));
+            rivalDetailsResponse.setLogo(ImageUtil.getImageViewDTO(rival.getLogo()));
         }
 
-        return responseRivalDetails;
+        return rivalDetailsResponse;
     }
 
-    public static ResponseMatchTeam mapRivalToResponseMatchTeam(Rival rival) {
-        ResponseMatchTeam responseMatchTeam = new ResponseMatchTeam();
+    public static MatchTeamDTO mapRivalToResponseMatchTeam(Rival rival) {
+        MatchTeamDTO matchTeamDTO = new MatchTeamDTO();
 
-        responseMatchTeam.setId(rival.getId());
-        responseMatchTeam.setName(rival.getName());
-        responseMatchTeam.setIsOurTeam(false);
+        matchTeamDTO.setId(rival.getId());
+        matchTeamDTO.setName(rival.getName());
+        matchTeamDTO.setIsOurTeam(false);
         if (rival.getLogo() != null) {
-            responseMatchTeam.setLogo(ImageUtil.getImageViewDTO(rival.getLogo()));
+            matchTeamDTO.setLogo(ImageUtil.getImageViewDTO(rival.getLogo()));
         }
-        return responseMatchTeam;
+        return matchTeamDTO;
     }
 
 }

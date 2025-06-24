@@ -67,7 +67,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     private Category updateCategory(CategorySaveRequest categorySaveRequest) {
-        Category category = categoryRepository.findById(categorySaveRequest.getId())
+        Category category = categoryRepository.findCategoryByIdAndIsActiveTrue(categorySaveRequest.getId())
                 .orElseThrow(() -> new CategoryException("Non se atopa a categoría en BD"));
 
         return saveCategoryEntity(categorySaveRequest, category);

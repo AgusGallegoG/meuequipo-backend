@@ -1,10 +1,10 @@
 package com.web.meuequipo.core.rival.rest;
 
-import com.web.meuequipo.core.rival.dto.request.RequestSaveRival;
-import com.web.meuequipo.core.rival.dto.response.ResponseRivalDetails;
-import com.web.meuequipo.core.rival.dto.response.ResponseRivalItem;
+import com.web.meuequipo.core.rival.dto.request.RivalSaveRequest;
+import com.web.meuequipo.core.rival.dto.response.RivalDetailsResponse;
+import com.web.meuequipo.core.rival.dto.response.RivalItemResponse;
 import com.web.meuequipo.core.rival.service.RivalService;
-import com.web.meuequipo.core.shared.dto.response.ResponseMatchTeam;
+import com.web.meuequipo.core.shared.dto.response.MatchTeamDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -26,22 +26,22 @@ public class RivalController {
     }
 
     @GetMapping("/{id}")
-    ResponseEntity<ResponseRivalDetails> getRivalDetails(@PathVariable("id") Long id) {
+    ResponseEntity<RivalDetailsResponse> getRivalDetails(@PathVariable("id") Long id) {
         return ResponseEntity.ok(rivalService.getRivalDetails(id));
     }
 
-    @GetMapping("/matchTeam")
-    List<ResponseMatchTeam> getRivalsAsMatchTeam(@RequestParam(name = "categoryId") Long categoryId) {
+    @GetMapping("/match-team")
+    List<MatchTeamDTO> getRivalsAsMatchTeam(@RequestParam(name = "categoryId") Long categoryId) {
         return rivalService.getRivalsByCategory(categoryId);
     }
 
-    @GetMapping
-    Page<ResponseRivalItem> getRivals(Pageable pageable) {
+    @GetMapping()
+    Page<RivalItemResponse> getRivals(Pageable pageable) {
         return rivalService.getRivalsTable(pageable);
     }
 
-    @PostMapping
-    ResponseEntity<ResponseRivalItem> saveRival(@RequestBody RequestSaveRival requestSaveRival) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(rivalService.saveRivalItem(requestSaveRival));
+    @PostMapping()
+    ResponseEntity<RivalItemResponse> saveRival(@RequestBody RivalSaveRequest rivalSaveRequest) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(rivalService.saveRivalItem(rivalSaveRequest));
     }
 }

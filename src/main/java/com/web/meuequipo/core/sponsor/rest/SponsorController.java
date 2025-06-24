@@ -22,7 +22,7 @@ public class SponsorController {
         this.sponsorService = sponsorService;
     }
 
-    @GetMapping("/footer")
+    @GetMapping("/public/footer")
     public List<SponsorResponse> getSponsorsFooter() {
         return sponsorService.getSponsorFooter();
     }
