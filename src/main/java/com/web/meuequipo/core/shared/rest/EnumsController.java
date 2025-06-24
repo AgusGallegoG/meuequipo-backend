@@ -1,6 +1,6 @@
 package com.web.meuequipo.core.shared.rest;
 
-import com.web.meuequipo.core.shared.dto.SelectDTO;
+import com.web.meuequipo.core.shared.dto.response.SelectDTO;
 import com.web.meuequipo.core.shared.service.EnumsService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,7 +12,7 @@ import java.util.List;
 @RequestMapping("/api/enums")
 public class EnumsController {
 
-    private EnumsService enumsService;
+    private final EnumsService enumsService;
 
     public EnumsController(EnumsService enumsService) {
         this.enumsService = enumsService;

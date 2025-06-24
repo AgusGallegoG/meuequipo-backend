@@ -1,13 +1,13 @@
 package com.web.meuequipo.core.user.service;
 
 
+import com.web.meuequipo.core.shared.util.UtilPassword;
 import com.web.meuequipo.core.user.User;
 import com.web.meuequipo.core.user.data.UserRepository;
 import com.web.meuequipo.core.user.dto.request.UserSaveRequest;
 import com.web.meuequipo.core.user.dto.response.UserResponse;
 import com.web.meuequipo.core.user.exception.UserException;
 import com.web.meuequipo.core.user.util.UserUtil;
-import com.web.meuequipo.core.util.UtilPassword;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;

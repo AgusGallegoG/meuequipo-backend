@@ -2,7 +2,6 @@ package com.web.meuequipo.core.publication.util;
 
 import com.web.meuequipo.core.publication.Publication;
 import com.web.meuequipo.core.publication.dto.PublicationDTO;
-import com.web.meuequipo.core.util.UtilDates;
 
 public class UtilPublication {
 
@@ -12,7 +11,6 @@ public class UtilPublication {
         response.setId(publication.getId());
         response.setBody(publication.getBody());
         response.setTitle(publication.getTitle());
-        response.setCreationDate(UtilDates.formatShortFormat(publication.getCreationDate()));
 
         return response;
     }

@@ -2,7 +2,7 @@ package com.web.meuequipo.core.category.service;
 
 import com.web.meuequipo.core.category.dto.request.CategorySaveRequest;
 import com.web.meuequipo.core.category.dto.response.CategoryResponse;
-import com.web.meuequipo.core.shared.dto.SelectDTO;
+import com.web.meuequipo.core.shared.dto.response.SelectDTO;
 
 import java.util.List;
 

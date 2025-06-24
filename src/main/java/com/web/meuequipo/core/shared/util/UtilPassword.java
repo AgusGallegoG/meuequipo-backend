@@ -1,4 +1,4 @@
-package com.web.meuequipo.core.util;
+package com.web.meuequipo.core.shared.util;
 
 import java.security.SecureRandom;
 
