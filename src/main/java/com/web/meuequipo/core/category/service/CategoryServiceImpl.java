@@ -8,7 +8,7 @@ import com.web.meuequipo.core.category.exception.CategoryException;
 import com.web.meuequipo.core.category.util.CategoryUtil;
 import com.web.meuequipo.core.season.Season;
 import com.web.meuequipo.core.season.data.SeasonRepository;
-import com.web.meuequipo.core.shared.dto.SelectDTO;
+import com.web.meuequipo.core.shared.dto.response.SelectDTO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

@@ -1,4 +1,4 @@
-package com.web.meuequipo.core.shared.dto;
+package com.web.meuequipo.core.shared.dto.response;
 
 import lombok.Data;
 

@@ -2,6 +2,7 @@ package com.web.meuequipo.core.shared.rest;
 
 import com.web.meuequipo.core.category.exception.CategoryException;
 import com.web.meuequipo.core.image.exception.ImageException;
+import com.web.meuequipo.core.rival.exception.RivalException;
 import com.web.meuequipo.core.season.exception.SeasonException;
 import com.web.meuequipo.core.shared.exception.BaseException;
 import com.web.meuequipo.core.sponsor.exception.SponsorException;
@@ -46,11 +47,16 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(ImageException.class)
     public ResponseEntity<Object> handleImageException(ImageException ex) {
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ex.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
     }
 
     @ExceptionHandler(SponsorException.class)
     public ResponseEntity<Object> handleSponsorException(SponsorException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(RivalException.class)
+    public ResponseEntity<Object> handleRivalException(RivalException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
     }
 }

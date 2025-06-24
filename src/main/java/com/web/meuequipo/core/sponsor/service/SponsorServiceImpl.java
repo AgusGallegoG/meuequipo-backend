@@ -3,6 +3,8 @@ package com.web.meuequipo.core.sponsor.service;
 import com.web.meuequipo.core.image.Image;
 import com.web.meuequipo.core.image.data.ImageRepository;
 import com.web.meuequipo.core.image.exception.ImageException;
+import com.web.meuequipo.core.season.Season;
+import com.web.meuequipo.core.season.data.SeasonRepository;
 import com.web.meuequipo.core.sponsor.Sponsor;
 import com.web.meuequipo.core.sponsor.data.SponsorRepository;
 import com.web.meuequipo.core.sponsor.dto.request.SponsorSaveRequest;
@@ -25,9 +27,12 @@ public class SponsorServiceImpl implements SponsorService {
 
     private final ImageRepository imageRepository;
 
-    public SponsorServiceImpl(SponsorRepository sponsorRepository, ImageRepository imageRepository) {
+    private final SeasonRepository seasonRepository;
+
+    public SponsorServiceImpl(SponsorRepository sponsorRepository, ImageRepository imageRepository, SeasonRepository seasonRepository) {
         this.sponsorRepository = sponsorRepository;
         this.imageRepository = imageRepository;
+        this.seasonRepository = seasonRepository;
     }
 
     @Override
@@ -67,7 +72,11 @@ public class SponsorServiceImpl implements SponsorService {
     }
 
     private Sponsor createSponsor(SponsorSaveRequest sponsorSaveRequest) {
+        Season season = this.seasonRepository.findByIsActiveTrue()
+                .orElseThrow(() -> new IllegalStateException("Non se atopou unha temporada activa"));
         Sponsor sponsor = new Sponsor();
+
+        sponsor.setSeason(season);
 
         return saveSponsorEntity(sponsorSaveRequest, sponsor);
     }

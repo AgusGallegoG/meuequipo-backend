@@ -3,7 +3,7 @@ package com.web.meuequipo.core.category.rest;
 import com.web.meuequipo.core.category.dto.request.CategorySaveRequest;
 import com.web.meuequipo.core.category.dto.response.CategoryResponse;
 import com.web.meuequipo.core.category.service.CategoryService;
-import com.web.meuequipo.core.shared.dto.SelectDTO;
+import com.web.meuequipo.core.shared.dto.response.SelectDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;

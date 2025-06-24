@@ -1,6 +1,6 @@
 package com.web.meuequipo.core.shared.service;
 
-import com.web.meuequipo.core.shared.dto.SelectDTO;
+import com.web.meuequipo.core.shared.dto.response.SelectDTO;
 import com.web.meuequipo.core.shared.enums.MatchState;
 import com.web.meuequipo.core.shared.enums.Sex;
 import com.web.meuequipo.core.shared.enums.SexPlayers;

@@ -2,7 +2,7 @@ package com.web.meuequipo.core.category.util;
 
 import com.web.meuequipo.core.category.Category;
 import com.web.meuequipo.core.category.dto.response.CategoryResponse;
-import com.web.meuequipo.core.shared.dto.SelectDTO;
+import com.web.meuequipo.core.shared.dto.response.SelectDTO;
 
 public class CategoryUtil {
 
