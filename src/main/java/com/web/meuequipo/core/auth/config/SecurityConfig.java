@@ -31,6 +31,7 @@ public class SecurityConfig {
             "/api/category/public/**",
             "/api/sponsors/public/**",
             "/api/teams/public/**",
+            "/api/signin/public",
             "/api/signin/public/**",
             "/api/blog/public/**",
             "/api/calendars/public/**",
