@@ -25,8 +25,8 @@ public abstract class Signin extends AuditableEntity implements Serializable {
     @Column(name = "parent_name", nullable = false)
     private String parentName;
 
-    @Column(name = "parent_surname", nullable = false)
-    private String parentSurname;
+    @Column(name = "parent_surnames", nullable = false)
+    private String parentSurnames;
 
     @Column(name = "mail", nullable = false)
     private String mail;
@@ -40,4 +40,8 @@ public abstract class Signin extends AuditableEntity implements Serializable {
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "season_id", nullable = false)
     private Season season;
+
+    public String getParentCompleteName() {
+        return this.parentName + " " + this.parentSurnames;
+    }
 }

@@ -37,4 +37,9 @@ public class Player extends Signin implements Serializable { // a traves de sign
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "team_id")
     private Team team;
+
+
+    public String getPlayerCompleteName() {
+        return this.name + " " + this.surnames;
+    }
 }
