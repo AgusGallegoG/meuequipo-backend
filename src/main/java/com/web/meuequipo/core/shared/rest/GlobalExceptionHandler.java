@@ -1,7 +1,9 @@
 package com.web.meuequipo.core.shared.rest;
 
 import com.web.meuequipo.core.category.exception.CategoryException;
+import com.web.meuequipo.core.game.exception.GameException;
 import com.web.meuequipo.core.image.exception.ImageException;
+import com.web.meuequipo.core.publication.exception.PublicationException;
 import com.web.meuequipo.core.rival.exception.RivalException;
 import com.web.meuequipo.core.season.exception.SeasonException;
 import com.web.meuequipo.core.shared.exception.BaseException;
@@ -63,6 +65,16 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(TeamException.class)
     public ResponseEntity<Object> handleTeamException(TeamException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(GameException.class)
+    public ResponseEntity<Object> handleGameException(GameException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(PublicationException.class)
+    public ResponseEntity<Object> handlePublicationException(PublicationException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
     }
 }

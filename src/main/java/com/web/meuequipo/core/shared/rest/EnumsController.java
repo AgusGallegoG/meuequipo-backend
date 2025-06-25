@@ -33,9 +33,9 @@ public class EnumsController {
         return this.enumsService.getSigninState();
     }
 
-    @GetMapping("/matchStates")
-    public List<SelectDTO> getMatchStates() {
-        return this.enumsService.getMatchState();
+    @GetMapping("/gameStates")
+    public List<SelectDTO> getGameStates() {
+        return this.enumsService.getGameState();
     }
 
 

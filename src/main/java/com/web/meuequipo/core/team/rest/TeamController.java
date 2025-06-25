@@ -1,6 +1,6 @@
 package com.web.meuequipo.core.team.rest;
 
-import com.web.meuequipo.core.shared.dto.response.MatchTeamDTO;
+import com.web.meuequipo.core.shared.dto.response.GameTeamResponse;
 import com.web.meuequipo.core.team.dto.request.TeamSaveRequest;
 import com.web.meuequipo.core.team.dto.response.TeamDetailsResponse;
 import com.web.meuequipo.core.team.dto.response.TeamItemResponse;
@@ -38,10 +38,10 @@ public class TeamController {
         return ResponseEntity.ok(teamService.getTeamDetails(id));
     }
 
-    @GetMapping("/match-team")
+    @GetMapping("/game-team")
     @PreAuthorize("isAuthenticated()")
-    List<MatchTeamDTO> getMatchTeamByCateogry(@RequestParam(name = "categoryId") Long categoryId) {
-        return teamService.getTeamsToMatchByCategory(categoryId);
+    List<GameTeamResponse> getGameTeamByCateogry(@RequestParam(name = "categoryId") Long categoryId) {
+        return teamService.getTeamsToGameByCategory(categoryId);
     }
 
     @GetMapping("/public/{id}")

@@ -2,7 +2,7 @@ package com.web.meuequipo.core.team.util;
 
 import com.web.meuequipo.core.category.Category;
 import com.web.meuequipo.core.image.util.ImageUtil;
-import com.web.meuequipo.core.shared.dto.response.MatchTeamDTO;
+import com.web.meuequipo.core.shared.dto.response.GameTeamResponse;
 import com.web.meuequipo.core.shared.dto.response.SelectDTO;
 import com.web.meuequipo.core.signin.Player;
 import com.web.meuequipo.core.team.Team;
@@ -61,17 +61,17 @@ public class TeamUtil {
         return teamItemResponse;
     }
 
-    public static MatchTeamDTO mapTeamToResponseMatchTeamDTO(Team team) {
-        MatchTeamDTO matchTeamDTO = new MatchTeamDTO();
+    public static GameTeamResponse mapTeamToResponseGameTeamResponse(Team team) {
+        GameTeamResponse gameTeamResponse = new GameTeamResponse();
 
-        matchTeamDTO.setId(team.getId());
-        matchTeamDTO.setName(team.getName());
-        matchTeamDTO.setIsOurTeam(true);
+        gameTeamResponse.setId(team.getId());
+        gameTeamResponse.setName(team.getName());
+        gameTeamResponse.setIsOurTeam(true);
         if (team.getTeamImage() != null) {
-            matchTeamDTO.setLogo(ImageUtil.getImageViewDTO(team.getTeamImage()));
+            gameTeamResponse.setLogo(ImageUtil.getImageViewDTO(team.getTeamImage()));
         }
 
-        return matchTeamDTO;
+        return gameTeamResponse;
     }
 
     public static TeamMenuItemResponse mapTeamToResponseTeamMenuItem(Category category, List<Team> teams) {

@@ -1,6 +1,6 @@
 package com.web.meuequipo.core.team.service;
 
-import com.web.meuequipo.core.shared.dto.response.MatchTeamDTO;
+import com.web.meuequipo.core.shared.dto.response.GameTeamResponse;
 import com.web.meuequipo.core.team.dto.request.TeamSaveRequest;
 import com.web.meuequipo.core.team.dto.response.TeamDetailsResponse;
 import com.web.meuequipo.core.team.dto.response.TeamItemResponse;
@@ -21,7 +21,7 @@ public interface TeamService {
 
     TeamItemResponse saveTeam(TeamSaveRequest teamSaveRequest);
 
-    List<MatchTeamDTO> getTeamsToMatchByCategory(Long categoryId);
+    List<GameTeamResponse> getTeamsToGameByCategory(Long categoryId);
 
     List<TeamMenuItemResponse> getTeamMenuItems();
 }

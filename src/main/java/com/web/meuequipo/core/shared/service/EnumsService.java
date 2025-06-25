@@ -11,5 +11,5 @@ public interface EnumsService {
 
     List<SelectDTO> getSigninState();
 
-    List<SelectDTO> getMatchState();
+    List<SelectDTO> getGameState();
 }

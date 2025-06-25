@@ -4,7 +4,7 @@ import com.web.meuequipo.core.rival.dto.request.RivalSaveRequest;
 import com.web.meuequipo.core.rival.dto.response.RivalDetailsResponse;
 import com.web.meuequipo.core.rival.dto.response.RivalItemResponse;
 import com.web.meuequipo.core.rival.service.RivalService;
-import com.web.meuequipo.core.shared.dto.response.MatchTeamDTO;
+import com.web.meuequipo.core.shared.dto.response.GameTeamResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -31,7 +31,7 @@ public class RivalController {
     }
 
     @GetMapping("/match-team")
-    List<MatchTeamDTO> getRivalsAsMatchTeam(@RequestParam(name = "categoryId") Long categoryId) {
+    List<GameTeamResponse> getRivalsAsGameTeam(@RequestParam(name = "categoryId") Long categoryId) {
         return rivalService.getRivalsByCategory(categoryId);
     }
 
