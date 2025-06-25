@@ -21,19 +21,19 @@ public class User extends AuditableEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "surnames")
+    @Column(name = "surnames", nullable = false)
     private String surnames;
 
     @Column(name = "email", unique = true, nullable = false)
     private String email;
 
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "rol")
+    @Column(name = "rol", nullable = false)
     private String rol = "ADMIN"; // Por ahora todos son administrators. Enum de roles
 
     @Column(name = "is_active", nullable = false)

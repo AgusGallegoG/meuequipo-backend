@@ -1,13 +1,15 @@
 package com.web.meuequipo.core.publication;
 
 import com.web.meuequipo.core.audit.AuditableEntity;
+import com.web.meuequipo.core.image.Image;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -19,16 +21,26 @@ public class Publication extends AuditableEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "publication_seq_generator")
-    @SequenceGenerator(name = "publication_seq_generator", sequenceName = "publication_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "title")
+    @Column(name = "title", nullable = false)
     private String title;
 
-    @Column(name = "body")
+    @Lob
+    @Column(name = "body", columnDefinition = "TEXT", nullable = false)
     private String body;
 
-    @Column(name = "creation_date")
-    private Date creationDate;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @JoinColumn(name = "publication_id")
+    private List<Image> images = new ArrayList<>();
+
+    //Metodos de Image en lado no propietario de la relacion
+    public void addImage(Image image) {
+        images.add(image);
+    }
+
+    public void removeImage(Image image) {
+        images.remove(image);
+    }
 }
