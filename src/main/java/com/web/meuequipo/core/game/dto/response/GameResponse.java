@@ -1,6 +1,7 @@
 package com.web.meuequipo.core.game.dto.response;
 
 import com.web.meuequipo.core.shared.dto.response.GameTeamResponse;
+import com.web.meuequipo.core.squad.dto.response.SquadResponse;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -16,5 +17,5 @@ public class GameResponse {
     private LocalDateTime gameDate;
     private String location;
     private Long state;
-    //TODO add squad
+    private SquadResponse squad;
 }

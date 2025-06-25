@@ -3,6 +3,7 @@ package com.web.meuequipo.core.game.util;
 import com.web.meuequipo.core.game.Game;
 import com.web.meuequipo.core.game.dto.response.GameResponse;
 import com.web.meuequipo.core.rival.util.RivalUtil;
+import com.web.meuequipo.core.squad.util.SquadUtil;
 import com.web.meuequipo.core.team.util.TeamUtil;
 
 public class GameUtil {
@@ -21,7 +22,7 @@ public class GameUtil {
         mapCommon(game, gameResponse);
 
         if (game.getSquad() != null) {
-            //TODO add squad if exists
+            gameResponse.setSquad(SquadUtil.createSquadResponse(game.getSquad()));
         }
 
         return gameResponse;
