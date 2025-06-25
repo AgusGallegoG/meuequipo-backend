@@ -1,10 +1,17 @@
 package com.web.meuequipo.core.publication.service;
 
-import com.web.meuequipo.core.publication.dto.PublicationDTO;
+import com.web.meuequipo.core.publication.dto.request.PublicationSaveRequest;
+import com.web.meuequipo.core.publication.dto.response.PublicationResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
+
 public interface PublicationService {
 
-    Page<PublicationDTO> getAllPublications(Pageable pageable);
+    Page<PublicationResponse> getAllPublications(Pageable pageable);
+
+    List<PublicationResponse> getLastPublications();
+
+    PublicationResponse savePublication(PublicationSaveRequest request);
 }
