@@ -14,7 +14,7 @@ import com.web.meuequipo.core.rival.exception.RivalException;
 import com.web.meuequipo.core.rival.util.RivalUtil;
 import com.web.meuequipo.core.season.Season;
 import com.web.meuequipo.core.season.data.SeasonRepository;
-import com.web.meuequipo.core.shared.dto.response.MatchTeamDTO;
+import com.web.meuequipo.core.shared.dto.response.GameTeamDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -57,10 +57,10 @@ public class RivalServiceImpl implements RivalService {
     }
 
     @Override
-    public List<MatchTeamDTO> getRivalsByCategory(Long categoryId) {
+    public List<GameTeamDTO> getRivalsByCategory(Long categoryId) {
         List<Rival> rivals = rivalRepository.findAllByCategoryIdAndActualSeason(categoryId);
 
-        return rivals.stream().map(RivalUtil::mapRivalToResponseMatchTeam).toList();
+        return rivals.stream().map(RivalUtil::mapRivalToResponseGameTeam).toList();
     }
 
     @Override

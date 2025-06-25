@@ -5,7 +5,7 @@ import com.web.meuequipo.core.image.util.ImageUtil;
 import com.web.meuequipo.core.rival.Rival;
 import com.web.meuequipo.core.rival.dto.response.RivalDetailsResponse;
 import com.web.meuequipo.core.rival.dto.response.RivalItemResponse;
-import com.web.meuequipo.core.shared.dto.response.MatchTeamDTO;
+import com.web.meuequipo.core.shared.dto.response.GameTeamDTO;
 
 public class RivalUtil {
 
@@ -42,16 +42,16 @@ public class RivalUtil {
         return rivalDetailsResponse;
     }
 
-    public static MatchTeamDTO mapRivalToResponseMatchTeam(Rival rival) {
-        MatchTeamDTO matchTeamDTO = new MatchTeamDTO();
+    public static GameTeamDTO mapRivalToResponseGameTeam(Rival rival) {
+        GameTeamDTO gameTeamDTO = new GameTeamDTO();
 
-        matchTeamDTO.setId(rival.getId());
-        matchTeamDTO.setName(rival.getName());
-        matchTeamDTO.setIsOurTeam(false);
+        gameTeamDTO.setId(rival.getId());
+        gameTeamDTO.setName(rival.getName());
+        gameTeamDTO.setIsOurTeam(false);
         if (rival.getLogo() != null) {
-            matchTeamDTO.setLogo(ImageUtil.getImageViewDTO(rival.getLogo()));
+            gameTeamDTO.setLogo(ImageUtil.getImageViewDTO(rival.getLogo()));
         }
-        return matchTeamDTO;
+        return gameTeamDTO;
     }
 
 }

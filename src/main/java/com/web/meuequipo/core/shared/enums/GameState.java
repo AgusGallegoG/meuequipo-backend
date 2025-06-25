@@ -5,7 +5,7 @@ import lombok.Getter;
 import java.util.Objects;
 
 @Getter
-public enum MatchState {
+public enum GameState {
     PRIVATE(1L, "Privado"),
     PROGRAMMED(2L, "Programado"),
     FINALIZED(3L, "Finalizado"),
@@ -15,18 +15,18 @@ public enum MatchState {
     private final Long id;
     private final String label;
 
-    MatchState(Long id, String label) {
+    GameState(Long id, String label) {
         this.id = id;
         this.label = label;
     }
 
-    public static MatchState fromId(Long id) {
-        for (MatchState matchState : MatchState.values()) {
-            if (Objects.equals(matchState.getId(), id)) {
-                return matchState;
+    public static GameState fromId(Long id) {
+        for (GameState gameState : GameState.values()) {
+            if (Objects.equals(gameState.getId(), id)) {
+                return gameState;
             }
         }
-        throw new IllegalArgumentException("No MatchState with id " + id);
+        throw new IllegalArgumentException("No GameState with id " + id);
     }
 
 }

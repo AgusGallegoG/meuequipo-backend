@@ -1,7 +1,7 @@
 package com.web.meuequipo.core.shared.service;
 
 import com.web.meuequipo.core.shared.dto.response.SelectDTO;
-import com.web.meuequipo.core.shared.enums.MatchState;
+import com.web.meuequipo.core.shared.enums.GameState;
 import com.web.meuequipo.core.shared.enums.Sex;
 import com.web.meuequipo.core.shared.enums.SexPlayers;
 import com.web.meuequipo.core.shared.enums.SigninState;
@@ -42,8 +42,8 @@ public class EnumsServiceImpl implements EnumsService {
     }
 
     @Override
-    public List<SelectDTO> getMatchState() {
-        return Arrays.stream(MatchState.values())
+    public List<SelectDTO> getGameState() {
+        return Arrays.stream(GameState.values())
                 .map(m ->
                         new SelectDTO(m.getId(), m.getLabel())
                 )

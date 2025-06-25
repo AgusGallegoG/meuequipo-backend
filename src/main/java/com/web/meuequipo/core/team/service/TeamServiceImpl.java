@@ -8,7 +8,7 @@ import com.web.meuequipo.core.image.data.ImageRepository;
 import com.web.meuequipo.core.image.exception.ImageException;
 import com.web.meuequipo.core.season.Season;
 import com.web.meuequipo.core.season.data.SeasonRepository;
-import com.web.meuequipo.core.shared.dto.response.MatchTeamDTO;
+import com.web.meuequipo.core.shared.dto.response.GameTeamDTO;
 import com.web.meuequipo.core.signin.Player;
 import com.web.meuequipo.core.signin.data.PlayerRepository;
 import com.web.meuequipo.core.team.Team;
@@ -74,10 +74,10 @@ public class TeamServiceImpl implements TeamService {
     }
 
     @Override
-    public List<MatchTeamDTO> getTeamsToMatchByCategory(Long categoryId) {
+    public List<GameTeamDTO> getTeamsToGameByCategory(Long categoryId) {
         List<Team> teams = teamRepository.findTeamsByCategoryIdOfActualSeason(categoryId);
 
-        return teams.stream().map(TeamUtil::mapTeamToResponseMatchTeamDTO).toList();
+        return teams.stream().map(TeamUtil::mapTeamToResponseGameTeamDTO).toList();
     }
 
     @Override
