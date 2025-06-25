@@ -35,6 +35,7 @@ public class SecurityConfig {
             "/api/signin/public/**",
             "/api/blog/public",
             "/api/blog/public/**",
+            "/api/calendars/public",
             "/api/calendars/public/**",
     };
 
