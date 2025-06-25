@@ -8,7 +8,7 @@ import com.web.meuequipo.core.image.data.ImageRepository;
 import com.web.meuequipo.core.image.exception.ImageException;
 import com.web.meuequipo.core.season.Season;
 import com.web.meuequipo.core.season.data.SeasonRepository;
-import com.web.meuequipo.core.shared.dto.response.GameTeamDTO;
+import com.web.meuequipo.core.shared.dto.response.GameTeamResponse;
 import com.web.meuequipo.core.signin.Player;
 import com.web.meuequipo.core.signin.data.PlayerRepository;
 import com.web.meuequipo.core.team.Team;
@@ -74,10 +74,10 @@ public class TeamServiceImpl implements TeamService {
     }
 
     @Override
-    public List<GameTeamDTO> getTeamsToGameByCategory(Long categoryId) {
+    public List<GameTeamResponse> getTeamsToGameByCategory(Long categoryId) {
         List<Team> teams = teamRepository.findTeamsByCategoryIdOfActualSeason(categoryId);
 
-        return teams.stream().map(TeamUtil::mapTeamToResponseGameTeamDTO).toList();
+        return teams.stream().map(TeamUtil::mapTeamToResponseGameTeamResponse).toList();
     }
 
     @Override
@@ -127,6 +127,7 @@ public class TeamServiceImpl implements TeamService {
         team.setName(teamSaveRequest.getName());
         team.setTrainer(teamSaveRequest.getTrainer());
         team.setTrainerContact(teamSaveRequest.getTrainerContact());
+        team.setSex(teamSaveRequest.getSex());
 
         if (teamSaveRequest.getCategory() != null) {
             Category category = categoryRepository.findCategoryByIdAndIsActiveTrue(teamSaveRequest.getCategory())

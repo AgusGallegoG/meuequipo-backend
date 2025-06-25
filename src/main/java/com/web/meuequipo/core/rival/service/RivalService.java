@@ -3,7 +3,7 @@ package com.web.meuequipo.core.rival.service;
 import com.web.meuequipo.core.rival.dto.request.RivalSaveRequest;
 import com.web.meuequipo.core.rival.dto.response.RivalDetailsResponse;
 import com.web.meuequipo.core.rival.dto.response.RivalItemResponse;
-import com.web.meuequipo.core.shared.dto.response.GameTeamDTO;
+import com.web.meuequipo.core.shared.dto.response.GameTeamResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -16,5 +16,5 @@ public interface RivalService {
 
     RivalItemResponse saveRivalItem(RivalSaveRequest rivalSaveRequest);
 
-    List<GameTeamDTO> getRivalsByCategory(Long categoryId);
+    List<GameTeamResponse> getRivalsByCategory(Long categoryId);
 }

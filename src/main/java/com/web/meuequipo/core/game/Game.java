@@ -12,6 +12,7 @@ import lombok.EqualsAndHashCode;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 @Entity
 @EqualsAndHashCode(callSuper = false)
@@ -26,6 +27,27 @@ public class Game extends AuditableEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+
+    @Column(name = "is_local", nullable = false)
+    private Boolean isLocal;
+
+
+    @Column(name = "local_points")
+    private Integer localPoints;
+
+    @Column(name = "visitor_points")
+    private Integer visitorPoints;
+
+
+    @Column(name = "location", nullable = false)
+    private String location;
+
+    @Column(name = "game_state", nullable = false)
+    private Long gameState;
+
+    @Column(name = "game_date", nullable = false)
+    private LocalDateTime gameDate;
+
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "team_id", nullable = false)
     private Team team;
@@ -34,28 +56,14 @@ public class Game extends AuditableEntity implements Serializable {
     @JoinColumn(name = "rival_id", nullable = false)
     private Rival rival;
 
-    @Column(name = "is_local", nullable = false)
-    private Boolean isLocal;
-
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "season_id", nullable = false)
     private Season season;
-
-    @Column(name = "local_points")
-    private Integer localPoints;
-
-    @Column(name = "visitor_points")
-    private Integer visitorPoints;
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;
 
-    @Column(name = "location", nullable = false)
-    private String location;
-
-    @Column(name = "game_state", nullable = false)
-    private String gameState;
 
     @OneToOne(mappedBy = "game") // Siempre se carga al recuperar un game
     private Squad squad;

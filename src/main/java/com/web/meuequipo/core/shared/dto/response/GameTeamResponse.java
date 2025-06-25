@@ -4,7 +4,7 @@ import com.web.meuequipo.core.image.dto.ImageViewDTO;
 import lombok.Data;
 
 @Data
-public class GameTeamDTO {
+public class GameTeamResponse {
     private Long id;
     private ImageViewDTO logo;
     private String name;
