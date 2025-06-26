@@ -8,6 +8,7 @@ import com.web.meuequipo.core.category.exception.CategoryException;
 import com.web.meuequipo.core.category.util.CategoryUtil;
 import com.web.meuequipo.core.season.Season;
 import com.web.meuequipo.core.season.data.SeasonRepository;
+import com.web.meuequipo.core.season.exception.SeasonException;
 import com.web.meuequipo.core.shared.dto.response.SelectDTO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -57,17 +58,15 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     private Category createCategory(CategorySaveRequest categorySaveRequest) {
-        Season season = this.seasonRepository.findByIsActiveTrue()
-                .orElseThrow(() -> new IllegalStateException("Non se atopou unha temporada activa"));
         Category category = new Category();
 
-        category.setSeason(season);
+        category.setSeason(this.getActiveSeason());
 
         return saveCategoryEntity(categorySaveRequest, category);
     }
 
     private Category updateCategory(CategorySaveRequest categorySaveRequest) {
-        Category category = categoryRepository.findCategoryByIdAndIsActiveTrue(categorySaveRequest.getId())
+        Category category = categoryRepository.findCategoryByIdAndIsActiveTrueOfActualSeason(categorySaveRequest.getId())
                 .orElseThrow(() -> new CategoryException("Non se atopa a categoría en BD"));
 
         return saveCategoryEntity(categorySaveRequest, category);
@@ -80,5 +79,9 @@ public class CategoryServiceImpl implements CategoryService {
         category.setActive(categorySaveRequest.isActive());
 
         return categoryRepository.save(category);
+    }
+
+    private Season getActiveSeason() {
+        return seasonRepository.findByIsActiveTrue().orElseThrow(() -> new SeasonException("Non se atopou Season activa"));
     }
 }

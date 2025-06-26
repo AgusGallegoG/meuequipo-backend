@@ -95,7 +95,7 @@ public class GameServiceImpl implements GameService {
     private Game createGame(GameSaveRequest gameSaveRequest) {
         Game game = new Game();
 
-        game.setSeason(getActiveSeason());
+        game.setSeason(this.getActiveSeason());
 
         mapGameEntity(gameSaveRequest, game);
 
@@ -116,7 +116,7 @@ public class GameServiceImpl implements GameService {
 
         game.setLocalPoints(gameSaveRequest.getLocalPoints());
         game.setVisitorPoints(gameSaveRequest.getVisitorPoints());
-        game.setCategory(getCategory(gameSaveRequest.getCategory()));
+        game.setCategory(this.getCategory(gameSaveRequest.getCategory()));
         game.setGameDate(gameSaveRequest.getGameDate());
         game.setLocation(gameSaveRequest.getLocation());
         game.setGameState(gameSaveRequest.getState());
@@ -132,11 +132,11 @@ public class GameServiceImpl implements GameService {
         }
 
         if (gameSaveRequest.getLocalTeam() != null) {
-            game.setTeam(getTeam(gameSaveRequest.getLocalTeam().getId()));
+            game.setTeam(this.getTeam(gameSaveRequest.getLocalTeam().getId()));
         }
 
         if (gameSaveRequest.getVisitorTeam() != null) {
-            game.setRival(getRival(gameSaveRequest.getVisitorTeam().getId()));
+            game.setRival(this.getRival(gameSaveRequest.getVisitorTeam().getId()));
         }
 
         if (localOurs) {
@@ -147,18 +147,22 @@ public class GameServiceImpl implements GameService {
     }
 
     private Team getTeam(Long id) {
-        return teamRepository.findTeamByIdOfActualSeason(id).orElseThrow(() -> new TeamException("Non se atopu o Team co id: " + id));
+        return teamRepository.findTeamByIdOfActualSeason(id)
+                .orElseThrow(() -> new TeamException("Non se atopu o Team co id: " + id));
     }
 
     private Rival getRival(Long id) {
-        return rivalRepository.findRivalByIdOfActualSeason(id).orElseThrow(() -> new RivalException("Non se atopu o Rival co id: " + id));
+        return rivalRepository.findRivalByIdOfActualSeason(id)
+                .orElseThrow(() -> new RivalException("Non se atopu o Rival co id: " + id));
     }
 
     private Category getCategory(Long id) {
-        return categoryRepository.findCategoryByIdAndIsActiveTrue(id).orElseThrow(() -> new CategoryException("Non se atopu o Category co id: " + id));
+        return categoryRepository.findCategoryByIdAndIsActiveTrueOfActualSeason(id)
+                .orElseThrow(() -> new CategoryException("Non se atopu o Category co id: " + id));
     }
 
     private Season getActiveSeason() {
-        return seasonRepository.findByIsActiveTrue().orElseThrow(() -> new SeasonException("Non se atopou Season activa"));
+        return seasonRepository.findByIsActiveTrue()
+                .orElseThrow(() -> new SeasonException("Non se atopou Season activa"));
     }
 }

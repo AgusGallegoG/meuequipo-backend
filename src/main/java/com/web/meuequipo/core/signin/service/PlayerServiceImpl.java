@@ -5,6 +5,7 @@ import com.web.meuequipo.core.category.data.CategoryRepository;
 import com.web.meuequipo.core.category.exception.CategoryException;
 import com.web.meuequipo.core.season.Season;
 import com.web.meuequipo.core.season.data.SeasonRepository;
+import com.web.meuequipo.core.season.exception.SeasonException;
 import com.web.meuequipo.core.shared.dto.response.SelectDTO;
 import com.web.meuequipo.core.shared.enums.SigninState;
 import com.web.meuequipo.core.signin.Player;
@@ -91,14 +92,8 @@ public class PlayerServiceImpl implements PlayerService {
     private Player initNewSigninEntity(SigninRequest signinRequest) {
         Player player = new Player();
 
-        Category category = categoryRepository.findCategoryByIdAndIsActiveTrue(signinRequest.getPlayer().getCategory())
-                .orElseThrow(() -> new CategoryException("Non se atopou a categoria con id: " + signinRequest.getPlayer().getCategory()));
-
-        Season season = seasonRepository.findByIsActiveTrue()
-                .orElseThrow(() -> new IllegalStateException("Non se atopa unnha temporada activa"));
-
-        player.setSeason(season);
-        player.setCategory(category);
+        player.setSeason(this.getActiveSeason());
+        player.setCategory(this.getCategory(signinRequest.getPlayer().getCategory()));
 
         return player;
     }
@@ -127,6 +122,17 @@ public class PlayerServiceImpl implements PlayerService {
         }
 
         return playerRepository.save(player);
+    }
+
+
+    private Category getCategory(Long id) {
+        return categoryRepository.findCategoryByIdAndIsActiveTrueOfActualSeason(id)
+                .orElseThrow(() -> new CategoryException("Non se atopu o Category co id: " + id));
+    }
+
+    private Season getActiveSeason() {
+        return seasonRepository.findByIsActiveTrue()
+                .orElseThrow(() -> new SeasonException("Non se atopou Season activa"));
     }
 
 }
