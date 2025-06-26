@@ -5,6 +5,7 @@ import com.web.meuequipo.core.image.data.ImageRepository;
 import com.web.meuequipo.core.image.exception.ImageException;
 import com.web.meuequipo.core.season.Season;
 import com.web.meuequipo.core.season.data.SeasonRepository;
+import com.web.meuequipo.core.season.exception.SeasonException;
 import com.web.meuequipo.core.sponsor.Sponsor;
 import com.web.meuequipo.core.sponsor.data.SponsorRepository;
 import com.web.meuequipo.core.sponsor.dto.request.SponsorSaveRequest;
@@ -42,7 +43,6 @@ public class SponsorServiceImpl implements SponsorService {
         return footer.stream().map(SponsorUtil::sponsorToSponsorResponse).toList();
     }
 
-
     @Override
     public Page<SponsorResponse> getSponsorsTable(Pageable pageable) {
         Page<Sponsor> table = this.sponsorRepository.findAllOfActualSeason(pageable);
@@ -72,11 +72,9 @@ public class SponsorServiceImpl implements SponsorService {
     }
 
     private Sponsor createSponsor(SponsorSaveRequest sponsorSaveRequest) {
-        Season season = this.seasonRepository.findByIsActiveTrue()
-                .orElseThrow(() -> new IllegalStateException("Non se atopou unha temporada activa"));
         Sponsor sponsor = new Sponsor();
 
-        sponsor.setSeason(season);
+        sponsor.setSeason(this.getActiveSeason());
 
         return saveSponsorEntity(sponsorSaveRequest, sponsor);
     }
@@ -85,11 +83,20 @@ public class SponsorServiceImpl implements SponsorService {
         sponsor.setName(sponsorSaveRequest.getName());
         sponsor.setUrl(sponsorSaveRequest.getUrl());
         if (sponsorSaveRequest.getLogo() != null && sponsorSaveRequest.getLogo().getId() != null) {
-            Image image = imageRepository.findById(sponsorSaveRequest.getLogo().getId())
-                    .orElseThrow(() -> new ImageException("Non se atopou imaxe co id" + sponsorSaveRequest.getLogo().getId()));
-            sponsor.setLogo(image);
+            sponsor.setLogo(this.getImage(sponsorSaveRequest.getLogo().getId()));
         }
 
         return this.sponsorRepository.save(sponsor);
     }
+
+    private Season getActiveSeason() {
+        return seasonRepository.findByIsActiveTrue()
+                .orElseThrow(() -> new SeasonException("Non se atopou Season activa"));
+    }
+
+    private Image getImage(Long id) {
+        return imageRepository.findById(id)
+                .orElseThrow(() -> new ImageException("Non se atopou imaxe co id" + id));
+    }
+
 }

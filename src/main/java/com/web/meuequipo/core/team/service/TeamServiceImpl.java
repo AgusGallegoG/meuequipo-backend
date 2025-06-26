@@ -8,6 +8,7 @@ import com.web.meuequipo.core.image.data.ImageRepository;
 import com.web.meuequipo.core.image.exception.ImageException;
 import com.web.meuequipo.core.season.Season;
 import com.web.meuequipo.core.season.data.SeasonRepository;
+import com.web.meuequipo.core.season.exception.SeasonException;
 import com.web.meuequipo.core.shared.dto.response.GameTeamResponse;
 import com.web.meuequipo.core.signin.Player;
 import com.web.meuequipo.core.signin.data.PlayerRepository;
@@ -113,12 +114,9 @@ public class TeamServiceImpl implements TeamService {
     }
 
     private Team createTeam(TeamSaveRequest teamSaveRequest) {
-        Season season = this.seasonRepository.findByIsActiveTrue()
-                .orElseThrow(() -> new IllegalStateException("Non se atopou unha temporada activa"));
-
         Team team = new Team();
 
-        team.setSeason(season);
+        team.setSeason(this.getActiveSeason());
 
         return saveTeamEntity(teamSaveRequest, team);
     }
@@ -130,18 +128,13 @@ public class TeamServiceImpl implements TeamService {
         team.setSex(teamSaveRequest.getSex());
 
         if (teamSaveRequest.getCategory() != null) {
-            Category category = categoryRepository.findCategoryByIdAndIsActiveTrue(teamSaveRequest.getCategory())
-                    .orElseThrow(() -> new CategoryException("Non se atopou unha categoria co id " + teamSaveRequest.getCategory()));
-
-            team.setCategory(category);
+            team.setCategory(this.getCategory(teamSaveRequest.getCategory()));
         } else {
             throw new IllegalArgumentException("Non se asociou o equipo a unha categoria.");
         }
 
         if (teamSaveRequest.getTeamImage() != null) {
-            Image image = imageRepository.findById(teamSaveRequest.getTeamImage().getId())
-                    .orElseThrow(() -> new ImageException("Non se atopou imaxe co id" + teamSaveRequest.getTeamImage().getId()));
-            team.setTeamImage(image);
+            team.setTeamImage(this.getImage(teamSaveRequest.getTeamImage().getId()));
         }
 
         if (teamSaveRequest.getPlayers() != null && !teamSaveRequest.getPlayers().isEmpty()) {
@@ -170,5 +163,20 @@ public class TeamServiceImpl implements TeamService {
         for (Player player : newPlayers) {
             team.addPlayer(player);
         }
+    }
+
+    private Category getCategory(Long id) {
+        return categoryRepository.findCategoryByIdAndIsActiveTrueOfActualSeason(id)
+                .orElseThrow(() -> new CategoryException("Non se atopu o Category co id: " + id));
+    }
+
+    private Season getActiveSeason() {
+        return seasonRepository.findByIsActiveTrue()
+                .orElseThrow(() -> new SeasonException("Non se atopou Season activa"));
+    }
+
+    private Image getImage(Long id) {
+        return imageRepository.findById(id)
+                .orElseThrow(() -> new ImageException("Non se atopou imaxe co id" + id));
     }
 }

@@ -14,6 +14,7 @@ import com.web.meuequipo.core.rival.exception.RivalException;
 import com.web.meuequipo.core.rival.util.RivalUtil;
 import com.web.meuequipo.core.season.Season;
 import com.web.meuequipo.core.season.data.SeasonRepository;
+import com.web.meuequipo.core.season.exception.SeasonException;
 import com.web.meuequipo.core.shared.dto.response.GameTeamResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -85,11 +86,9 @@ public class RivalServiceImpl implements RivalService {
     }
 
     private Rival createRival(RivalSaveRequest rivalSaveRequest) {
-        Season season = this.seasonRepository.findByIsActiveTrue()
-                .orElseThrow(() -> new IllegalStateException("Non se atopou unha temporada activa"));
         Rival rival = new Rival();
 
-        rival.setSeason(season);
+        rival.setSeason(this.getActiveSeason());
 
         return saveRivalEntity(rivalSaveRequest, rival);
     }
@@ -101,21 +100,34 @@ public class RivalServiceImpl implements RivalService {
         rival.setResponsible(rivalSaveRequest.getResponsible());
 
         if (rivalSaveRequest.getCategories() != null) {
-            List<Category> categories = categoryRepository.findAllByIdInAndIsActiveTrue(rivalSaveRequest.getCategories());
-
-            rival.setCategories(categories);
+            rival.setCategories(this.getCategories(rivalSaveRequest.getCategories()));
         } else {
             throw new IllegalArgumentException("Non pode non ter categorias asociadas");
         }
 
 
         if (rivalSaveRequest.getLogo() != null) {
-            Image image = imageRepository.findById(rivalSaveRequest.getLogo().getId())
-                    .orElseThrow(() -> new ImageException("Non se atopou imaxe co id" + rivalSaveRequest.getLogo().getId()));
-            rival.setLogo(image);
+            rival.setLogo(this.getImage(rivalSaveRequest.getLogo().getId()));
         }
 
 
         return rivalRepository.save(rival);
     }
+
+    private Season getActiveSeason() {
+        return seasonRepository.findByIsActiveTrue()
+                .orElseThrow(() -> new SeasonException("Non se atopou Season activa"));
+    }
+
+    private List<Category> getCategories(List<Long> ids) {
+        return categoryRepository.findAllByIdInAndIsActiveTrueOfActualSeason(ids);
+
+    }
+
+    private Image getImage(Long id) {
+        return imageRepository.findById(id)
+                .orElseThrow(() -> new ImageException("Non se atopou imaxe co id" + id));
+    }
+
+
 }
