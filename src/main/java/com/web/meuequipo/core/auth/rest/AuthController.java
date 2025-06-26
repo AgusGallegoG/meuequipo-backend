@@ -29,6 +29,11 @@ public class AuthController {
         return ResponseEntity.ok(loginResponse);
     }
 
+    @GetMapping("/validate")
+    public ResponseEntity<Void> validateToken() {
+        return ResponseEntity.ok().build();
+    }
+
     @PreAuthorize("isAuthenticated()")
     @PatchMapping("/changepass")
     public void changePassword(@RequestBody ChangePassRequest changePassRequest,
