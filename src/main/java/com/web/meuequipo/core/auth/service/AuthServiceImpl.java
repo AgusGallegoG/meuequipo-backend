@@ -26,7 +26,7 @@ public class AuthServiceImpl implements AuthService {
     public LoginResponse authenticate(LoginRequest loginRequest) {
         //AuthenticationManager invoca a CustomUserDetailsService para comprobar el login en bd
         Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(loginRequest.getName(), loginRequest.getPassword())
+                new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword())
         );
 
         CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
