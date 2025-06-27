@@ -44,8 +44,6 @@ public class SquadServiceImpl implements SquadService {
         squad.setMeetingPoint(request.getLocationMeeting());
         squad.setMeetingTime(request.getDateMeeting());
 
-        //TODO => Mails
-
         return SquadUtil.createSquadResponse(squadRepository.save(squad));
     }
 

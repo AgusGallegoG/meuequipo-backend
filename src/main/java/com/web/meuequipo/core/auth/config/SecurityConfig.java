@@ -8,6 +8,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -20,6 +21,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity
 public class SecurityConfig {
 
     private final JwtAuthFilter jwtAuthFilter;
@@ -27,13 +29,12 @@ public class SecurityConfig {
     private static final String[] WHITE_LIST = {
             "/api/auth/login",
             "/api/season/active",
+            "/api/signin/download",
             "/api/enums/**",
             "/api/images/serve/**",
             "/api/category/public/**",
             "/api/sponsors/public/**",
             "/api/teams/public/**",
-            "/api/signin/public",
-            "/api/signin/public/**",
             "/api/blog/public",
             "/api/blog/public/**",
             "/api/calendars/public",

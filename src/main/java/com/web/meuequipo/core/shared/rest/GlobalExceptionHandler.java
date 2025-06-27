@@ -3,10 +3,12 @@ package com.web.meuequipo.core.shared.rest;
 import com.web.meuequipo.core.category.exception.CategoryException;
 import com.web.meuequipo.core.game.exception.GameException;
 import com.web.meuequipo.core.image.exception.ImageException;
+import com.web.meuequipo.core.player.exception.PlayerException;
 import com.web.meuequipo.core.publication.exception.PublicationException;
 import com.web.meuequipo.core.rival.exception.RivalException;
 import com.web.meuequipo.core.season.exception.SeasonException;
 import com.web.meuequipo.core.shared.exception.BaseException;
+import com.web.meuequipo.core.signinPeriod.exception.SigninFormException;
 import com.web.meuequipo.core.sponsor.exception.SponsorException;
 import com.web.meuequipo.core.team.exception.TeamException;
 import com.web.meuequipo.core.user.exception.UserException;
@@ -75,6 +77,16 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(PublicationException.class)
     public ResponseEntity<Object> handlePublicationException(PublicationException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(PlayerException.class)
+    public ResponseEntity<Object> handlePlayerException(PlayerException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(SigninFormException.class)
+    public ResponseEntity<Object> handleSigninFormException(SigninFormException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
     }
 }
