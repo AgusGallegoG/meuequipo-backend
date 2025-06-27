@@ -1,6 +1,8 @@
-package com.web.meuequipo.core.signin;
+package com.web.meuequipo.core.player;
 
+import com.web.meuequipo.core.audit.AuditableEntity;
 import com.web.meuequipo.core.category.Category;
+import com.web.meuequipo.core.season.Season;
 import com.web.meuequipo.core.team.Team;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -13,10 +15,14 @@ import java.time.LocalDate;
 @Entity
 @Data
 @Table(name = "Player")
-@EqualsAndHashCode(callSuper = true)
-public class Player extends Signin implements Serializable { // a traves de signin tiene auditableentity
+@EqualsAndHashCode(callSuper = false)
+public class Player extends AuditableEntity implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(name = "name", nullable = false)
     private String name;
@@ -37,6 +43,10 @@ public class Player extends Signin implements Serializable { // a traves de sign
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "team_id")
     private Team team;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "season_id")
+    private Season season;
 
 
     public String getPlayerCompleteName() {

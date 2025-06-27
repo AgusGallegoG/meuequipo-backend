@@ -67,14 +67,9 @@ public class UserServiceImpl implements UserService {
 
         User user = new User();
 
-
         user.setPassword(passwordEncoder.encode(password));
 
-        User saved = saveUserEntity(request, user);
-
-        //TODO :> Send mail to user with info -> Revisar tryCatch NO relanzar la excepcion, para devolver el response correcto aunque falle el mail
-
-        return saved;
+        return saveUserEntity(request, user);
     }
 
     private User updateUser(UserSaveRequest request) {

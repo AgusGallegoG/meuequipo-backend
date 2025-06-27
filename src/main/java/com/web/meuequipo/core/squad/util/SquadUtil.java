@@ -1,6 +1,6 @@
 package com.web.meuequipo.core.squad.util;
 
-import com.web.meuequipo.core.signin.util.PlayerUtil;
+import com.web.meuequipo.core.player.util.PlayerUtil;
 import com.web.meuequipo.core.squad.Squad;
 import com.web.meuequipo.core.squad.dto.response.SquadResponse;
 

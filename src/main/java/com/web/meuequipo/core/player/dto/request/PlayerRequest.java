@@ -1,4 +1,4 @@
-package com.web.meuequipo.core.signin.dto.request;
+package com.web.meuequipo.core.player.dto.request;
 
 import lombok.Data;
 

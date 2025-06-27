@@ -6,9 +6,12 @@ import com.web.meuequipo.core.season.dto.request.SeasonCreateRequest;
 import com.web.meuequipo.core.season.dto.response.SeasonResponse;
 import com.web.meuequipo.core.season.exception.SeasonException;
 import com.web.meuequipo.core.season.util.SeasonUtil;
+import com.web.meuequipo.core.signinPeriod.SigninPeriod;
+import com.web.meuequipo.core.signinPeriod.data.SigninPeriodRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,8 +21,11 @@ public class SeasonServiceImpl implements SeasonService {
 
     private final SeasonRepository seasonRepository;
 
-    public SeasonServiceImpl(SeasonRepository seasonRepository) {
+    private final SigninPeriodRepository signinPeriodRepository;
+
+    public SeasonServiceImpl(SeasonRepository seasonRepository, SigninPeriodRepository signinPeriodRepository) {
         this.seasonRepository = seasonRepository;
+        this.signinPeriodRepository = signinPeriodRepository;
     }
 
     @Override
@@ -57,10 +63,23 @@ public class SeasonServiceImpl implements SeasonService {
 
         seasonRepository.save(newSeason);
 
+        this.createSigninPeriod(newSeason);
+
         if (seasonCreateRequest.getActive()) {
             return activateSeason(newSeason.getId());
         } else {
             return SeasonUtil.createSeasonResponse(newSeason);
         }
+    }
+
+    private void createSigninPeriod(Season season) {
+        SigninPeriod signinPeriod = new SigninPeriod();
+
+        signinPeriod.setSeason(season);
+        signinPeriod.setDateInit(LocalDate.now());
+        signinPeriod.setDateEnd(LocalDate.now().plusMonths(1));
+
+
+        signinPeriodRepository.save(signinPeriod);
     }
 }

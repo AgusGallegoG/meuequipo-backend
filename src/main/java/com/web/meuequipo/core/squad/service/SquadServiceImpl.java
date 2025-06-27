@@ -4,8 +4,8 @@ package com.web.meuequipo.core.squad.service;
 import com.web.meuequipo.core.game.Game;
 import com.web.meuequipo.core.game.data.GameRepository;
 import com.web.meuequipo.core.game.exception.GameException;
-import com.web.meuequipo.core.signin.Player;
-import com.web.meuequipo.core.signin.data.PlayerRepository;
+import com.web.meuequipo.core.player.Player;
+import com.web.meuequipo.core.player.data.PlayerRepository;
 import com.web.meuequipo.core.squad.Squad;
 import com.web.meuequipo.core.squad.data.SquadRepository;
 import com.web.meuequipo.core.squad.dto.request.SquadCreateRequest;
@@ -43,8 +43,6 @@ public class SquadServiceImpl implements SquadService {
         squad.setPlayers(getSquadPlayers(request.getPlayers()));
         squad.setMeetingPoint(request.getLocationMeeting());
         squad.setMeetingTime(request.getDateMeeting());
-
-        //TODO => Mails
 
         return SquadUtil.createSquadResponse(squadRepository.save(squad));
     }
