@@ -1,7 +1,7 @@
 package com.web.meuequipo.core.squad;
 
 import com.web.meuequipo.core.game.Game;
-import com.web.meuequipo.core.signin.Player;
+import com.web.meuequipo.core.player.Player;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

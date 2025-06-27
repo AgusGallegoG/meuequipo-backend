@@ -1,4 +1,4 @@
-package com.web.meuequipo.core.signin.exception;
+package com.web.meuequipo.core.player.exception;
 
 import com.web.meuequipo.core.shared.exception.BaseException;
 

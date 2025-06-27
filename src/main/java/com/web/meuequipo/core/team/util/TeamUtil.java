@@ -2,9 +2,9 @@ package com.web.meuequipo.core.team.util;
 
 import com.web.meuequipo.core.category.Category;
 import com.web.meuequipo.core.image.util.ImageUtil;
+import com.web.meuequipo.core.player.Player;
 import com.web.meuequipo.core.shared.dto.response.GameTeamResponse;
 import com.web.meuequipo.core.shared.dto.response.SelectDTO;
-import com.web.meuequipo.core.signin.Player;
 import com.web.meuequipo.core.team.Team;
 import com.web.meuequipo.core.team.dto.response.TeamDetailsResponse;
 import com.web.meuequipo.core.team.dto.response.TeamItemResponse;
