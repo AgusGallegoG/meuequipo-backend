@@ -64,6 +64,12 @@ public class SigninPeriodServiceImpl implements SigninPeriodService {
         return filseSystemUtil.getFormAsResource(period.getFormPath());
     }
 
+    @Override
+    public Boolean checkActive() {
+        SigninPeriod period = getActiveSigninPeriod();
+        return period.isActive();
+    }
+
 
     private SigninPeriod getActiveSigninPeriod() {
         return signinPeriodRepository.findPeriodOfActualSeason()

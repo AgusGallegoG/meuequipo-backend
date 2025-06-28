@@ -24,6 +24,11 @@ public class SigninPeriodController {
         this.signinPeriodService = signinPeriodService;
     }
 
+    @GetMapping("/period-active")
+    public ResponseEntity<Boolean> isPeriodActive() {
+        return ResponseEntity.ok(signinPeriodService.checkActive());
+    }
+
     @PatchMapping("/period")
     public ResponseEntity<SigninPeriodInfoResponse> updatePeriod(@RequestBody SigninPeriodUpdateRequest request) {
         return ResponseEntity.ok(signinPeriodService.updatePeriod(request));

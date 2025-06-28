@@ -1,7 +1,6 @@
 package com.web.meuequipo.core.user.service;
 
 
-import com.web.meuequipo.core.shared.util.UtilPassword;
 import com.web.meuequipo.core.user.User;
 import com.web.meuequipo.core.user.data.UserRepository;
 import com.web.meuequipo.core.user.dto.request.UserSaveRequest;
@@ -19,6 +18,7 @@ import java.util.Objects;
 @Service
 @Transactional(readOnly = true)
 public class UserServiceImpl implements UserService {
+    private final static String DEFAULT_PASSWORD = "123password";
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
@@ -63,11 +63,9 @@ public class UserServiceImpl implements UserService {
     }
 
     private User createUser(UserSaveRequest request) {
-        String password = UtilPassword.generateSecurePass();
-
         User user = new User();
 
-        user.setPassword(passwordEncoder.encode(password));
+        user.setPassword(passwordEncoder.encode(DEFAULT_PASSWORD));
 
         return saveUserEntity(request, user);
     }

@@ -7,7 +7,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,7 +22,6 @@ public class PublicationController {
     }
 
     @GetMapping(value = "/admin")
-    @PreAuthorize("isAuthenticated()")
     public Page<PublicationResponse> getAllBlogPublications(Pageable pageable) {
         return publicationService.getAllPublications(pageable);
     }
@@ -39,7 +37,6 @@ public class PublicationController {
     }
 
     @PostMapping()
-    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<PublicationResponse> savePublication(@RequestBody PublicationSaveRequest publicationSaveRequest) {
         return ResponseEntity.status(HttpStatus.CREATED).body(publicationService.savePublication(publicationSaveRequest));
     }

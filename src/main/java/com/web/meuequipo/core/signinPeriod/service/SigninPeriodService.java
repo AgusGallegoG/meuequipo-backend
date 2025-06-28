@@ -13,4 +13,6 @@ public interface SigninPeriodService {
     SigninPeriodInfoResponse getInfo();
 
     Resource downloadForm();
+
+    Boolean checkActive();
 }

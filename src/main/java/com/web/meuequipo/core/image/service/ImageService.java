@@ -7,7 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 public interface ImageService {
     ImageViewDTO saveImage(MultipartFile file);
 
-    Resource serveImage(String relativePath);
+    Resource serveImage(Long imageId);
 
     ImageViewDTO getImageViewDTOById(Long id);
 }

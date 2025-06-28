@@ -46,7 +46,11 @@ public class SigninPeriod extends AuditableEntity implements Serializable {
     }
 
     public Boolean isActive() {
-        return LocalDate.now().isBefore(dateEnd) && LocalDate.now().isAfter(dateInit);
+        LocalDate now = LocalDate.now();
+        boolean isAfterOrEqualInit = now.isAfter(dateInit) || now.isEqual(dateInit);
+        boolean isBeforeOrEqualEnd = now.isBefore(dateEnd) || now.isEqual(dateEnd);
+
+        return isAfterOrEqualInit && isBeforeOrEqualEnd;
     }
 
 }

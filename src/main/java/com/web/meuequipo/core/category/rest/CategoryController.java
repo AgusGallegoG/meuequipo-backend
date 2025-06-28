@@ -6,7 +6,6 @@ import com.web.meuequipo.core.category.service.CategoryService;
 import com.web.meuequipo.core.shared.dto.response.SelectDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,14 +26,12 @@ public class CategoryController {
     }
 
 
-    @GetMapping("/")
-    @PreAuthorize("isAuthenticated()")
+    @GetMapping()
     public List<CategoryResponse> getCategories() {
         return this.categoryService.getCategories();
     }
 
-    @PostMapping("/")
-    @PreAuthorize("isAuthenticated()")
+    @PostMapping()
     public ResponseEntity<CategoryResponse> saveCategories(@RequestBody CategorySaveRequest categorySaveRequest) {
         return ResponseEntity.status(HttpStatus.CREATED).body(this.categoryService.saveCategory(categorySaveRequest));
     }
