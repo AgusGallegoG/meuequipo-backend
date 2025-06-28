@@ -7,12 +7,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestControllerAdvice
 @RequestMapping("/api/users")
-@PreAuthorize("isAuthenticated()")
 public class UserController {
 
     private final UserService userService;
@@ -21,12 +19,12 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/")
+    @GetMapping()
     public Page<UserResponse> getUsersPage(Pageable pageable) {
         return userService.getUsers(pageable);
     }
 
-    @PostMapping("/")
+    @PostMapping()
     public ResponseEntity<UserResponse> saveUser(@RequestBody UserSaveRequest request) {
         return ResponseEntity.status(HttpStatus.CREATED).body(userService.saveUser(request));
     }

@@ -11,7 +11,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,19 +26,16 @@ public class TeamController {
     }
 
     @GetMapping()
-    @PreAuthorize("isAuthenticated()")
     public Page<TeamItemResponse> getTeamsPage(Pageable pageable) {
         return teamService.getTeams(pageable);
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<TeamDetailsResponse> getTeamDetails(@PathVariable("id") Long id) {
         return ResponseEntity.ok(teamService.getTeamDetails(id));
     }
 
     @GetMapping("/game-team")
-    @PreAuthorize("isAuthenticated()")
     List<GameTeamResponse> getGameTeamByCateogry(@RequestParam(name = "categoryId") Long categoryId) {
         return teamService.getTeamsToGameByCategory(categoryId);
     }

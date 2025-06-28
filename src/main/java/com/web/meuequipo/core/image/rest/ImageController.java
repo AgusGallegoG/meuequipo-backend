@@ -6,7 +6,6 @@ import com.web.meuequipo.core.image.service.ImageService;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -24,15 +23,14 @@ public class ImageController {
     }
 
     @PostMapping("/save")
-    @PreAuthorize("isAuthenticated()")
     public ImageViewDTO saveImage(MultipartFile file) {
         return imageService.saveImage(file);
     }
 
-    @GetMapping("/serve/{relativePath:.+}")
-    public ResponseEntity<Resource> serveImage(@PathVariable(value = "relativePath") String relativePath) {
+    @GetMapping("/serve/{id}")
+    public ResponseEntity<Resource> serveImage(@PathVariable(value = "id") Long id) {
         try {
-            Resource resource = imageService.serveImage(relativePath);
+            Resource resource = imageService.serveImage(id);
             String contentType = Files.probeContentType(resource.getFile().toPath());
 
             return ResponseEntity.ok().contentType(MediaType.parseMediaType(contentType != null ? contentType : "application/octet-stream")).body(resource);

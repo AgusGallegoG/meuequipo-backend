@@ -16,7 +16,7 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
             SELECT c
             FROM Category c
             WHERE c.season.isActive = true
-            AND c.isActive = true""")
+            """)
     List<Category> findAllCategoryActiveActualSeason();
 
     @Query("""

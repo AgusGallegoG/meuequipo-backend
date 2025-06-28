@@ -20,7 +20,6 @@ import java.util.UUID;
 
 @Component
 public class ImageFilesystemUtil {
-    private final static String ENDPOINT = "/api/images/serve/";
 
     private final ImageProperties imageProperties;
 
@@ -45,7 +44,6 @@ public class ImageFilesystemUtil {
         String storedName = UUID.randomUUID() + "_" + originalName;
         String subfolder = getSubfolder();
         String relativePath = String.join("/", subfolder, storedName);
-        String url = ENDPOINT + relativePath;
 
         Path targetPath = Paths.get(imageProperties.getPath(), subfolder);
 
@@ -56,7 +54,7 @@ public class ImageFilesystemUtil {
         } catch (IOException e) {
             throw new BaseException("Error saving image in file system", e);
         }
-        return new CreationData(originalName, storedName, url, relativePath);
+        return new CreationData(originalName, storedName, relativePath);
     }
 
     public Resource getImageResource(String relativePath) {
@@ -88,8 +86,7 @@ public class ImageFilesystemUtil {
     public record CreationData(
             String originalName,
             String storedName,
-            String relativePath,
-            String url
+            String relativePath
     ) {
     }
 

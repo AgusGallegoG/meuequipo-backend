@@ -7,7 +7,6 @@ import com.web.meuequipo.core.auth.security.CustomUserDetails;
 import com.web.meuequipo.core.auth.service.AuthService;
 import com.web.meuequipo.core.user.service.UserService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,7 +33,6 @@ public class AuthController {
         return ResponseEntity.ok().build();
     }
 
-    @PreAuthorize("isAuthenticated()")
     @PatchMapping("/changepass")
     public void changePassword(@RequestBody ChangePassRequest changePassRequest,
                                @AuthenticationPrincipal CustomUserDetails userDetails) {

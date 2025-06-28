@@ -9,7 +9,6 @@ public class ImageUtil {
         ImageViewDTO imageDTO = new ImageViewDTO();
 
         imageDTO.setId(image.getId());
-        imageDTO.setUrl(image.getUrl());
         imageDTO.setName(image.getOriginalName());
 
         return imageDTO;

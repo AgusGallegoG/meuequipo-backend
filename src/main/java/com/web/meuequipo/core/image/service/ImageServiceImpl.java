@@ -3,6 +3,7 @@ package com.web.meuequipo.core.image.service;
 import com.web.meuequipo.core.image.Image;
 import com.web.meuequipo.core.image.data.ImageRepository;
 import com.web.meuequipo.core.image.dto.ImageViewDTO;
+import com.web.meuequipo.core.image.exception.ImageException;
 import com.web.meuequipo.core.image.util.ImageFilesystemUtil;
 import com.web.meuequipo.core.image.util.ImageUtil;
 import org.springframework.core.io.Resource;
@@ -30,7 +31,6 @@ public class ImageServiceImpl implements ImageService {
 
         Image image = new Image();
 
-        image.setUrl(data.url());
         image.setOriginalName(data.originalName());
         image.setStoredName(data.storedName());
         image.setRelativePath(data.relativePath());
@@ -53,7 +53,13 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
-    public Resource serveImage(String relativePath) {
-        return imageFilesystemUtil.getImageResource(relativePath);
+    public Resource serveImage(Long id) {
+        Image img = this.imageRepository.findById(id).orElse(null);
+
+        if (img == null) {
+            throw new ImageException("Non se atopou a imaxe");
+        }
+
+        return imageFilesystemUtil.getImageResource(img.getRelativePath());
     }
 }
