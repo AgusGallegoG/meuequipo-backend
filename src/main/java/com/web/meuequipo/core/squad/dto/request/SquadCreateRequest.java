@@ -12,6 +12,4 @@ public class SquadCreateRequest {
     private List<Long> players;
     private String locationMeeting;
     private LocalDateTime dateMeeting;
-    private Boolean sendMail;
-    private String mailText;
 }
