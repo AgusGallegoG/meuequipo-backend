@@ -34,8 +34,7 @@ public class SigninPeriodController {
         return ResponseEntity.ok(signinPeriodService.updatePeriod(request));
     }
 
-
-    @PatchMapping("/form")
+    @PostMapping("/form")
     public ResponseEntity<SigninPeriodInfoResponse> updateForm(MultipartFile file) {
         return ResponseEntity.ok(signinPeriodService.updateForm(file));
     }

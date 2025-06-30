@@ -31,7 +31,5 @@ public class Image extends AuditableEntity implements Serializable {
     @Column(name = "relative_path", nullable = false)
     private String relativePath;
 
-    @Column(name = "url", nullable = false)
-    private String url;
 
 }

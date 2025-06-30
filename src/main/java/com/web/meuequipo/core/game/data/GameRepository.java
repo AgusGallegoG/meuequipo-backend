@@ -17,7 +17,7 @@ public interface GameRepository extends JpaRepository<Game, Long> {
                 FROM Game g
                 WHERE g.season.isActive = true
                 AND (:from IS NULL OR g.gameDate >= :from)
-                AND (:to IS NULL OR g.gameDate >= :to)
+                AND (:to IS NULL OR g.gameDate <= :to)
                 AND (:teamId IS NULL OR g.team.id = :teamId)
                 AND (:private IS NULL or g.gameState <> :private)
                 AND (:canceled IS NULL or  g.gameState <> :canceled)

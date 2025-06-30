@@ -79,7 +79,7 @@ public class PlayerServiceImpl implements PlayerService {
         this.mapPlayerEntity(player, request);
         player.setSeason(this.getActiveSeason());
 
-        return player;
+        return playerRepository.save(player);
     }
 
     private Player updatePlayer(PlayerRequest request) {
@@ -88,7 +88,7 @@ public class PlayerServiceImpl implements PlayerService {
 
         this.mapPlayerEntity(player, request);
 
-        return player;
+        return playerRepository.save(player);
     }
 
     private void mapPlayerEntity(Player player, PlayerRequest request) {

@@ -40,6 +40,13 @@ public class PublicationServiceImpl implements PublicationService {
     }
 
     @Override
+    public Page<PublicationResponse> getAllPublicationsAdmin(Pageable pageable) {
+        Page<Publication> response = this.publicationRepository.findAllPage(pageable);
+
+        return response.map(PublicationUtil::mapPublicationToDTO);
+    }
+
+    @Override
     public List<PublicationResponse> getLastPublications() {
         List<Publication> response = this.publicationRepository.findNewPublications(PageRequest.of(0, 5));
         return response.stream().map(PublicationUtil::mapPublicationToDTO).toList();
@@ -73,8 +80,10 @@ public class PublicationServiceImpl implements PublicationService {
     private void mapPublicationEntity(PublicationSaveRequest request, Publication publication) {
         publication.setBody(request.getBody());
         publication.setTitle(request.getTitle());
-        updateImages(publication, request.getImages().
-                stream().map(ImageViewDTO::getId).toList());
+        if (request.getImages() != null && !request.getImages().isEmpty()) {
+            updateImages(publication, request.getImages().
+                    stream().map(ImageViewDTO::getId).toList());
+        }
     }
 
     private void updateImages(Publication publication, List<Long> imageIds) {

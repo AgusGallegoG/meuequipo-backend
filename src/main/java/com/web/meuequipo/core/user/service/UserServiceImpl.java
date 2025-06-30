@@ -30,6 +30,7 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
+    @Transactional
     public void changePassword(Long userId, String oldPassword, String newPassword) {
         User user = userRepository.findByIdAndIsActiveIsTrue(userId)
                 .orElseThrow(() -> new UserException("Non se atopa o usuario en base de datos"));

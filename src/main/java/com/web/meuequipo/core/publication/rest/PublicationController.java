@@ -23,7 +23,7 @@ public class PublicationController {
 
     @GetMapping(value = "/admin")
     public Page<PublicationResponse> getAllBlogPublications(Pageable pageable) {
-        return publicationService.getAllPublications(pageable);
+        return publicationService.getAllPublicationsAdmin(pageable);
     }
 
     @GetMapping(value = "/public")

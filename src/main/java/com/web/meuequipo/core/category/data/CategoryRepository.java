@@ -16,6 +16,7 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
             SELECT c
             FROM Category c
             WHERE c.season.isActive = true
+            AND c.isActive = true
             """)
     List<Category> findAllCategoryActiveActualSeason();
 
@@ -26,6 +27,13 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
             AND c.isActive = true
             AND c.id = :id""")
     Optional<Category> findCategoryByIdAndIsActiveTrueOfActualSeason(@Param("id") Long id);
+
+    @Query("""
+            SELECT c
+            FROM Category c
+            WHERE c.season.isActive = true
+            AND c.id = :id""")
+    Optional<Category> findCategoryOfActualSeason(@Param("id") Long id);
 
     @Query("""
             SELECT c

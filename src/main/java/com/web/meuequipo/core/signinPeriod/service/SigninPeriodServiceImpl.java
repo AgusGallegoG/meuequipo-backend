@@ -19,15 +19,16 @@ public class SigninPeriodServiceImpl implements SigninPeriodService {
 
     private final SigninPeriodRepository signinPeriodRepository;
 
-    private final SigninFormFileSystemUtil filseSystemUtil;
+    private final SigninFormFileSystemUtil fileSystemUtil;
 
-    public SigninPeriodServiceImpl(SigninPeriodRepository signinPeriodRepository, SigninFormFileSystemUtil filseSystemUtil) {
+    public SigninPeriodServiceImpl(SigninPeriodRepository signinPeriodRepository, SigninFormFileSystemUtil fileSystemUtil) {
         this.signinPeriodRepository = signinPeriodRepository;
-        this.filseSystemUtil = filseSystemUtil;
+        this.fileSystemUtil = fileSystemUtil;
     }
 
 
     @Override
+    @Transactional
     public SigninPeriodInfoResponse updatePeriod(SigninPeriodUpdateRequest request) {
         SigninPeriod period = getActiveSigninPeriod();
         if (period.getId().equals(request.getId())) {
@@ -44,10 +45,15 @@ public class SigninPeriodServiceImpl implements SigninPeriodService {
     }
 
     @Override
+    @Transactional
     public SigninPeriodInfoResponse updateForm(MultipartFile file) {
         SigninPeriod period = getActiveSigninPeriod();
 
-        period.setFormPath(this.filseSystemUtil.saveNewForm(file));
+        String path = this.fileSystemUtil.saveNewForm(file);
+
+        period.setFormPath(path);
+
+        signinPeriodRepository.save(period);
 
         return SigninPeriodUtil.mapSigninPeriodToInfoResponse(period);
     }
@@ -58,10 +64,13 @@ public class SigninPeriodServiceImpl implements SigninPeriodService {
     }
 
     @Override
+    @Transactional
     public Resource downloadForm() {
         SigninPeriod period = getActiveSigninPeriod();
 
-        return filseSystemUtil.getFormAsResource(period.getFormPath());
+        period.setDownloads(period.getDownloads() + 1);
+
+        return fileSystemUtil.getFormAsResource(period.getFormPath());
     }
 
     @Override

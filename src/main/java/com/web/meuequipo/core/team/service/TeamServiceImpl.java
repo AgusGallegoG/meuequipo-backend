@@ -97,9 +97,9 @@ public class TeamServiceImpl implements TeamService {
         Team saved;
 
         if (teamSaveRequest.getId() != null) {
-            saved = this.createTeam(teamSaveRequest);
-        } else {
             saved = this.updateTeam(teamSaveRequest);
+        } else {
+            saved = this.createTeam(teamSaveRequest);
         }
 
         return TeamUtil.mapTeamToTeamItemResponse(saved);

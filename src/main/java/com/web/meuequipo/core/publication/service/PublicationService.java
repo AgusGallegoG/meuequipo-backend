@@ -11,6 +11,8 @@ public interface PublicationService {
 
     Page<PublicationResponse> getAllPublications(Pageable pageable);
 
+    Page<PublicationResponse> getAllPublicationsAdmin(Pageable pageable);
+
     List<PublicationResponse> getLastPublications();
 
     PublicationResponse savePublication(PublicationSaveRequest request);

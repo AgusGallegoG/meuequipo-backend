@@ -82,6 +82,7 @@ public class GameServiceImpl implements GameService {
     }
 
     @Override
+    @Transactional
     public GameResponse saveGame(GameSaveRequest gameSaveRequest) {
         Game saved;
         if (gameSaveRequest.getId() == null) {

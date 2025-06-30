@@ -28,7 +28,7 @@ public class RivalController {
         return ResponseEntity.ok(rivalService.getRivalDetails(id));
     }
 
-    @GetMapping("/match-team")
+    @GetMapping("/game-team")
     List<GameTeamResponse> getRivalsAsGameTeam(@RequestParam(name = "categoryId") Long categoryId) {
         return rivalService.getRivalsByCategory(categoryId);
     }

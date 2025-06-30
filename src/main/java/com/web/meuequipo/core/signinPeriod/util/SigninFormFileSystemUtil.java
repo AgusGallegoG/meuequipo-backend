@@ -42,15 +42,15 @@ public class SigninFormFileSystemUtil {
 
     public String saveNewForm(MultipartFile file) {
         String originalName = file.getOriginalFilename();
-        String newName = UUID.randomUUID() + "." + originalName;
+        String storedName = UUID.randomUUID() + "_" + originalName;
         String subfolder = getSubfolder();
-        String relativePath = String.join("/", subfolder, newName);
+        String relativePath = String.join("/", subfolder, storedName);
 
-        Path targetPath = Paths.get(signinPeriodProperties.getPath(), relativePath);
+        Path targetPath = Paths.get(signinPeriodProperties.getPath(), subfolder);
 
         try {
             Files.createDirectories(targetPath);
-            Path fileInFileSystem = targetPath.resolve(relativePath);
+            Path fileInFileSystem = targetPath.resolve(storedName);
             Files.copy(file.getInputStream(), fileInFileSystem, StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {
             throw new BaseException("Error saving new signin form");

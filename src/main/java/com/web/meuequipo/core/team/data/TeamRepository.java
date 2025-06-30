@@ -31,9 +31,8 @@ public interface TeamRepository extends JpaRepository<Team, Long> {
     @Query("""
                 SELECT t
                 FROM Team t
-                JOIN Category c
-                WHERE c.id = :categoryId
-                AND c.isActive = true
+                WHERE t.category.id = :categoryId
+                AND t.category.isActive = true
                 AND t.season.isActive=true
             """)
     List<Team> findTeamsByCategoryIdOfActualSeason(Long categoryId);

@@ -20,6 +20,12 @@ public interface PublicationRepository extends JpaRepository<Publication, Long> 
     @Query("""
             SELECT p
             FROM Publication p
+            """)
+    Page<Publication> findAllPage(Pageable pageable);
+
+    @Query("""
+            SELECT p
+            FROM Publication p
             ORDER BY p.createdDate DESC
             """)
     List<Publication> findNewPublications(Pageable pageable);

@@ -78,6 +78,7 @@ public class SeasonServiceImpl implements SeasonService {
         signinPeriod.setSeason(season);
         signinPeriod.setDateInit(LocalDate.now());
         signinPeriod.setDateEnd(LocalDate.now().plusMonths(1));
+        signinPeriod.setDownloads(0);
 
 
         signinPeriodRepository.save(signinPeriod);

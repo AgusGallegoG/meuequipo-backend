@@ -46,7 +46,7 @@ public class SecurityConfig {
 
     private final JwtAuthFilter jwtAuthFilter;
     private final CustomUserDetailsService customUserDetailsService;
-    @Value("${app.cors.allowed-origins}") // Inyecta el valor de la propiedad
+    @Value("${app.cors.allowed-origins}")
     private String allowedOrigins;
 
 
